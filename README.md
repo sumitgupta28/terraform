@@ -54,3 +54,6 @@ There are a few key reasons developers choose to use Terraform over other Infras
 
 
 ## [Terraform Commands](./terraform-commands.md)
+
+
+## [Terraform AWS Demo](./aws-terraform-example.md)
