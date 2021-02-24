@@ -54,6 +54,33 @@ There are a few key reasons developers choose to use Terraform over other Infras
 
 ![vs. Ansible](images/terraform-life-cycle.JPG)
 
+| Commands                            | Commands                            |
+| -------------                       | -------------                       |
+| [fmt](#terraform-fmt)               | [providers](#terraform-providers)   |
+| [init](#terraform-init)             | [validate](#terraform-validate)     |
+| [plan](#terraform-plan)             | [apply](#terraform-apply)           |
+| [destroy](#terraform-destroy)       | [graph](#terraform-graph)           |
+| [output](#terraform-output)         |            |
+
+
+### terraform fmt
+
+        Reformat your configuration in the standard style
+
+### terraform providers
+
+Providers are a logical abstraction of an upstream API. They are responsible for understanding API interactions and exposing resources. 
+for example for using the terraform with AWS you will need aws provider. All the providers can be found [here](https://registry.terraform.io/browse/providers).
+
+[init](#terraform-init) add the providers to the project and will be available at  **.terraform\providers\registry.terraform.io\hashicorp**
+
+        $ terraform providers
+
+        Providers required by configuration:
+        .       
+        ├── provider[registry.terraform.io/hashicorp/aws]
+        └── provider[registry.terraform.io/hashicorp/template]        
+
 ### terraform init
 
         $ terraform init
@@ -80,7 +107,10 @@ There are a few key reasons developers choose to use Terraform over other Infras
         rerun this command to reinitialize your working directory. If you forget, other
         commands will detect it and remind you to do so if necessary.
 
+### terraform validate
 
+        $ terraform validate
+        Success! The configuration is valid.
 
 ### terraform plan
 
@@ -289,6 +319,16 @@ There are a few key reasons developers choose to use Terraform over other Infras
 
         Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
+### terraform output
+Print the output shown post Apply.
+
+        $ terraform output
+        application-server-arn = "arn:aws:ec2:us-east-1:119956859268:instance/i-0f946ffa9d28addd8"
+        application-server-private_ip = "10.0.1.54"
+        application-server-public_ip = "3.239.234.128"
+        aws_eip-nat-public_ip = "52.55.141.238"
+        aws_nat_gateway-nat-gw-public_ip = "52.55.141.238"
+        rds = "mariadb.cgi4z9yx8mvq.us-east-1.rds.amazonaws.com:3306"
 
 ![instace](/images/instance-1.JPG)
 
@@ -381,3 +421,92 @@ There are a few key reasons developers choose to use Terraform over other Infras
 
 
 ![instace](/images/instance-1-terminated.JPG)
+
+### terraform graph
+The terraform graph command is used to generate a visual representation of either a configuration or execution plan. The output is in the DOT format, which can be used by GraphViz to generate charts.
+
+        $ terraform graph
+        digraph {
+                compound = "true"
+                newrank = "true"
+                subgraph "root" {
+                        "[root] aws_eip.nat (expand)" [label = "aws_eip.nat", shape = "box"]
+                        "[root] aws_instance.public-ec2 (expand)" [label = "aws_instance.public-ec2", shape = "box"]
+                        "[root] aws_internet_gateway.main-gw (expand)" [label = "aws_internet_gateway.main-gw", shape = "box"]
+                        "[root] aws_key_pair.mykeypair (expand)" [label = "aws_key_pair.mykeypair", shape = "box"]
+                        "[root] aws_nat_gateway.nat-gw (expand)" [label = "aws_nat_gateway.nat-gw", shape = "box"]
+                        "[root] aws_route_table.main-private (expand)" [label = "aws_route_table.main-private", shape = "box"]
+                        "[root] aws_route_table.main-public (expand)" [label = "aws_route_table.main-public", shape = "box"]
+                        "[root] aws_route_table_association.main-private-1-a (expand)" [label = "aws_route_table_association.main-private-1-a", shape = "box"]
+                        "[root] aws_route_table_association.main-public-1-a (expand)" [label = "aws_route_table_association.main-public-1-a", shape = "box"]
+                        "[root] aws_security_group.allow-http (expand)" [label = "aws_security_group.allow-http", shape = "box"]
+                        "[root] aws_security_group.allow-ssh (expand)" [label = "aws_security_group.allow-ssh", shape = "box"]
+                        "[root] aws_subnet.main-private-1 (expand)" [label = "aws_subnet.main-private-1", shape = "box"]
+                        "[root] aws_subnet.main-public-1 (expand)" [label = "aws_subnet.main-public-1", shape = "box"]
+                        "[root] aws_vpc.main (expand)" [label = "aws_vpc.main", shape = "box"]
+                        "[root] data.template_cloudinit_config.cloudinit-startup-script (expand)" [label = "data.template_cloudinit_config.cloudinit-startup-script", shape = "box"]
+                        "[root] data.template_file.shell-script (expand)" [label = "data.template_file.shell-script", shape = "box"]
+                        "[root] output.aws_eip-nat-public_ip" [label = "output.aws_eip-nat-public_ip", shape = "note"]
+                        "[root] output.aws_nat_gateway-nat-gw-public_ip" [label = "output.aws_nat_gateway-nat-gw-public_ip", shape = "note"]
+                        "[root] output.public-ec2-arn" [label = "output.public-ec2-arn", shape = "note"]
+                        "[root] output.public-ec2-private_ip" [label = "output.public-ec2-private_ip", shape = "note"]
+                        "[root] output.public-ec2-public_ip" [label = "output.public-ec2-public_ip", shape = "note"]
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+                        "[root] provider[\"registry.terraform.io/hashicorp/template\"]" [label = "provider[\"registry.terraform.io/hashicorp/template\"]", shape = "diamond"]
+                        "[root] var.AMIS" [label = "var.AMIS", shape = "note"]
+                        "[root] var.AWS_ACCESS_KEY" [label = "var.AWS_ACCESS_KEY", shape = "note"]
+                        "[root] var.AWS_REGION" [label = "var.AWS_REGION", shape = "note"]
+                        "[root] var.AWS_SECRET_KEY" [label = "var.AWS_SECRET_KEY", shape = "note"]
+                        "[root] var.PATH_TO_PRIVATE_KEY" [label = "var.PATH_TO_PRIVATE_KEY", shape = "note"]
+                        "[root] var.PATH_TO_PUBLIC_KEY" [label = "var.PATH_TO_PUBLIC_KEY", shape = "note"]
+                        "[root] aws_eip.nat (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] aws_key_pair.mykeypair (expand)"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] aws_security_group.allow-http (expand)"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] aws_security_group.allow-ssh (expand)"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] aws_subnet.main-public-1 (expand)"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] data.template_cloudinit_config.cloudinit-startup-script (expand)"
+                        "[root] aws_instance.public-ec2 (expand)" -> "[root] var.AMIS"
+                        "[root] aws_internet_gateway.main-gw (expand)" -> "[root] aws_vpc.main (expand)"
+                        "[root] aws_key_pair.mykeypair (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+                        "[root] aws_key_pair.mykeypair (expand)" -> "[root] var.PATH_TO_PUBLIC_KEY"
+                        "[root] aws_nat_gateway.nat-gw (expand)" -> "[root] aws_eip.nat (expand)"
+                        "[root] aws_nat_gateway.nat-gw (expand)" -> "[root] aws_internet_gateway.main-gw (expand)"
+                        "[root] aws_nat_gateway.nat-gw (expand)" -> "[root] aws_subnet.main-public-1 (expand)"
+                        "[root] aws_route_table.main-private (expand)" -> "[root] aws_nat_gateway.nat-gw (expand)"
+                        "[root] aws_route_table.main-public (expand)" -> "[root] aws_internet_gateway.main-gw (expand)"
+                        "[root] aws_route_table_association.main-private-1-a (expand)" -> "[root] aws_route_table.main-private (expand)"
+                        "[root] aws_route_table_association.main-private-1-a (expand)" -> "[root] aws_subnet.main-private-1 (expand)"
+                        "[root] aws_route_table_association.main-public-1-a (expand)" -> "[root] aws_route_table.main-public (expand)"
+                        "[root] aws_route_table_association.main-public-1-a (expand)" -> "[root] aws_subnet.main-public-1 (expand)"
+                        "[root] aws_security_group.allow-http (expand)" -> "[root] aws_vpc.main (expand)"
+                        "[root] aws_security_group.allow-ssh (expand)" -> "[root] aws_vpc.main (expand)"
+                        "[root] aws_subnet.main-private-1 (expand)" -> "[root] aws_vpc.main (expand)"
+                        "[root] aws_subnet.main-public-1 (expand)" -> "[root] aws_vpc.main (expand)"
+                        "[root] aws_vpc.main (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+                        "[root] data.template_cloudinit_config.cloudinit-startup-script (expand)" -> "[root] data.template_file.shell-script (expand)"
+                        "[root] data.template_file.shell-script (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/template\"]"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table_association.main-private-1-a (expand)"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table_association.main-public-1-a (expand)"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] output.aws_eip-nat-public_ip"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] output.aws_nat_gateway-nat-gw-public_ip"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] output.public-ec2-arn"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] output.public-ec2-private_ip"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] output.public-ec2-public_ip"
+                        "[root] meta.count-boundary (EachMode fixup)" -> "[root] var.PATH_TO_PRIVATE_KEY"
+                        "[root] output.aws_eip-nat-public_ip" -> "[root] aws_eip.nat (expand)"
+                        "[root] output.aws_nat_gateway-nat-gw-public_ip" -> "[root] aws_nat_gateway.nat-gw (expand)"
+                        "[root] output.public-ec2-arn" -> "[root] aws_instance.public-ec2 (expand)"
+                        "[root] output.public-ec2-private_ip" -> "[root] aws_instance.public-ec2 (expand)"
+                        "[root] output.public-ec2-public_ip" -> "[root] aws_instance.public-ec2 (expand)"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_instance.public-ec2 (expand)"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.main-private-1-a (expand)"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.main-public-1-a (expand)"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.AWS_ACCESS_KEY"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.AWS_REGION"
+                        "[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.AWS_SECRET_KEY"
+                        "[root] provider[\"registry.terraform.io/hashicorp/template\"] (close)" -> "[root] data.template_cloudinit_config.cloudinit-startup-script (expand)"
+                        "[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+                        "[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+                        "[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/template\"] (close)"
+                }
+        }
