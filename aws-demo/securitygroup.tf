@@ -1,7 +1,7 @@
-resource "aws_security_group" "allow-ssh" {
+resource "aws_security_group" "instance-security-group" {
   vpc_id      = aws_vpc.main.id
-  name        = "allow-ssh"
-  description = "security group that allows ssh and all egress traffic"
+  name        = "instance-security-group"
+  description = "security group that allows ssh/http and all egress traffic"
   egress {
     from_port   = 0
     to_port     = 0
@@ -15,22 +15,6 @@ resource "aws_security_group" "allow-ssh" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name        = "allow-ssh"
-    ServiceName = "Test"
-  }
-}
-
-resource "aws_security_group" "allow-http" {
-  vpc_id      = aws_vpc.main.id
-  name        = "allow-http"
-  description = "security group that allows http and all egress traffic"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     from_port   = 80
@@ -39,11 +23,10 @@ resource "aws_security_group" "allow-http" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name        = "allow-http"
+    Name        = "instance-security-group"
     ServiceName = "Test"
   }
 }
-
 
 resource "aws_security_group" "allow-mariadb" {
   vpc_id      = aws_vpc.main.id

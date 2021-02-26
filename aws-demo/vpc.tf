@@ -23,7 +23,18 @@ resource "aws_subnet" "main-public-1" {
     ServiceName = "Test"
   }
 }
+# Public Subnets
+resource "aws_subnet" "main-public-2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
+  map_public_ip_on_launch = "true"
+  availability_zone       = "us-east-1b"
 
+  tags = {
+    Name        = "main-public-2"
+    ServiceName = "Test"
+  }
+}
 
 # Private Subnets
 resource "aws_subnet" "main-private-1" {
