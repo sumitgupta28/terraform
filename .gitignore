@@ -1,5 +1,5 @@
 
-*/*.tfvars
+*/terraform.tfvars
 */.terraform.lock.hcl
 */.terraform/**
 .terraform\**
@@ -10,3 +10,8 @@
 */mykey
 */mykey.pub
 */*.plan
+*/terraform.tfvars
+*/terraform.tfstate
+*/terraform.tfstate.backup
+*/.terraform
+*/mykey*

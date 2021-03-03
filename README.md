@@ -6,6 +6,12 @@ Terraform is an open source “Infrastructure as Code” tool, created by HashiC
 
 A declarative coding tool, Terraform enables developers to use a high-level configuration language called HCL (HashiCorp Configuration Language) to describe the desired “end-state” cloud or on-premises infrastructure for running an application. It then generates a plan for reaching that end-state and executes the plan to provision the infrastructure.
 
+Terraform is a tool to build out server infrastructure through code, sometimes called Infrastructure as Code. This allows you to define your entire infrastructure with code for repeatable and consistent builds. Terraform can be used to deploy vm's, storage, networking, DNS, load Balancers and more with cloud infrastructure providers like AWS and Azure among others.
+
+Cloud providers like AWS and Azure have their own way to define infrastructure as code with CloudFormation and Azure Resource Manager (ARM) templates. Terraform takes this a step further and can manage multiple cloud providers in one configuration.
+
+Terraform uses its own configuration language called "Terraform Language" which is based off of HCL.
+
 ## Why Infrastructure as Code (IaC)?
 IaC allows developers to codify infrastructure in a way that makes provisioning automated, faster, and repeatable. It’s a key component of Agile and DevOps practices such as version control, continuous integration, and continuous deployment.
 
