@@ -1060,12 +1060,22 @@ This does not modify infrastructure, but does modify the state file. If the stat
 
 This command is used to move the items in a terraform state. this is used to rename the existing resource without destroying and re-creating it. A backup file will be created before applying changes to main state file. 
 
+This commond will updated the resource on existing "terraform.tfstate" file
+
+    $ terraform state mv aws_instance.front-end aws_instance.front-end-server
+    Move "aws_instance.front-end" to "aws_instance.front-end-server"
+    Successfully moved 1 object(s).
+
+This commond will extract the  resource and place on a new "terraform.tfstate" file provided with **-state-out**
+
+    $ terraform state mv -state-out=terraform-ec2.tfstate  aws_instance.front-end aws_instance.front-end-server
+    Move "aws_instance.front-end" to "aws_instance.front-end-server"
+    Successfully moved 1 object(s).
+
 #### terraform state rm 
 
-State rm command is used to remove resource from terraform state. Resource won;t be destoryed on provider , but it
-won;t be no longer managed by terraform. 
-
-So after applying state rm on any resource if destroy is applied, resource won;t be deleted on provider.
+State rm command is used to remove resource from terraform state. Resource won't be destoryed on provider , but it
+won't be no longer managed by terraform. So after applying state rm on any resource if destroy is applied, resource won't be deleted on provider.
 
 
 
