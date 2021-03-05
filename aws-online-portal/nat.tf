@@ -2,7 +2,7 @@
 resource "aws_eip" "onlineportal-eip" {
   vpc = true
   tags = {
-    Name        = "onlineportal-eip"
+    Name    = "onlineportal-eip"
     AppName = "onlineportal"
   }
 
@@ -23,7 +23,7 @@ resource "aws_route_table" "onlineportal-private-route-table" {
   }
 
   tags = {
-    Name        = "onlineportal-pri-subnet-1"
+    Name    = "onlineportal-pri-subnet-1"
     AppName = "onlineportal"
   }
 }

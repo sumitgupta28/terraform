@@ -6,7 +6,7 @@ resource "aws_vpc" "sgsys-onlineportal-vpc" {
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
   tags = {
-    Name        = "sgsys-onlineportal-vpc"
+    Name    = "sgsys-onlineportal-vpc"
     AppName = "onlineportal"
   }
 }
@@ -19,7 +19,7 @@ resource "aws_subnet" "onlineportal-pub-subnet-1" {
   availability_zone       = "us-east-1a"
 
   tags = {
-    Name        = "onlineportal-pub-subnet-1"
+    Name    = "onlineportal-pub-subnet-1"
     AppName = "onlineportal"
   }
 }
@@ -31,7 +31,7 @@ resource "aws_subnet" "onlineportal-pub-subnet-2" {
   availability_zone       = "us-east-1b"
 
   tags = {
-    Name        = "onlineportal-pub-subnet-2"
+    Name    = "onlineportal-pub-subnet-2"
     AppName = "onlineportal"
   }
 }
@@ -44,7 +44,7 @@ resource "aws_subnet" "onlineportal-pri-subnet-1" {
   availability_zone       = "us-east-1a"
 
   tags = {
-    Name        = "onlineportal-pri-subnet-1"
+    Name    = "onlineportal-pri-subnet-1"
     AppName = "onlineportal"
   }
 }
@@ -56,7 +56,7 @@ resource "aws_subnet" "onlineportal-pri-subnet-2" {
   availability_zone       = "us-east-1b"
 
   tags = {
-    Name        = "onlineportal-pri-subnet-2"
+    Name    = "onlineportal-pri-subnet-2"
     AppName = "onlineportal"
   }
 }

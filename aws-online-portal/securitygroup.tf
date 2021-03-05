@@ -16,7 +16,7 @@ resource "aws_security_group" "onlineportal-security-group-ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name        = "onlineportal-security-group-ssh"
+    Name    = "onlineportal-security-group-ssh"
     AppName = "onlineportal"
   }
 }
@@ -47,7 +47,7 @@ resource "aws_security_group" "onlineportal-security-group-tcp" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name        = "onlineportal-security-group-tcp"
+    Name    = "onlineportal-security-group-tcp"
     AppName = "onlineportal"
   }
 }

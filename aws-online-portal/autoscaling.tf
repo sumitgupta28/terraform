@@ -3,7 +3,7 @@ resource "aws_launch_configuration" "onlineportal-autoscale-launchconfig" {
   image_id        = var.AMIS[var.AWS_REGION]
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.onlineportal-keypair.key_name
-  security_groups = [aws_security_group.onlineportal-security-group-ssh.id,aws_security_group.onlineportal-security-group-tcp.id]
+  security_groups = [aws_security_group.onlineportal-security-group-ssh.id, aws_security_group.onlineportal-security-group-tcp.id]
 }
 
 resource "aws_autoscaling_group" "onlineportal-autoscaling-group" {
