@@ -205,8 +205,16 @@ The terraform apply command is used to apply the changes required to reach the d
 
 - **-auto-approve** option won;t ask you to confirm again. 
 
-**Example**
+During the **terraform apply**
+- Refresh the data source
+- **Created resources** that exist in .tf files but not in state file. 
+- **Delete resources** that exist in state files but not in .tf files. 
+- **Update resources** that have different argument in the .tf files then on the cloud provider. 
+    - **Destroy and re-create** resource that have argument changed that require re-creation [ like a chnage to user_data in ec2 instance always need re-creation]
+    - **In Place update** are possible if provider api support it like security group update.
 
+
+**Example**
 
         $ terraform apply
 
@@ -331,8 +339,8 @@ Print the output shown post Apply.
 
 
 ### terraform destroy
-The terraform destroy command is used to destroy the Terraform-managed infrastructure.
 
+The terraform destroy command is used to destroy the Terraform-managed infrastructure.
 
 **Example**
 
@@ -423,6 +431,42 @@ The terraform destroy command is used to destroy the Terraform-managed infrastru
 
 
 ![instace](/images/instance-1-terminated.JPG)
+
+
+Destroy an specific resource. 
+
+"/git-hub-demo" creates 2 repository if you would to delete 1 of them then use like below. 
+
+
+        $ terraform destroy -target=github_repository.terraform-repo-sumitgupta28-test -auto-approve
+        github_repository.terraform-repo-sumitgupta28-test: Destroying... [id=terraform-repo-sumitgupta28-test]
+        github_repository.terraform-repo-sumitgupta28-test: Destruction complete after 0s
+
+        Warning: Resource targeting is in effect
+
+        You are creating a plan with the -target option, which means that the result
+        of this plan may not represent all of the changes requested by the current
+        configuration.
+
+        The -target option is not for routine use, and is provided only for
+        exceptional situations such as recovering from errors or mistakes, or when
+        Terraform specifically suggests to use it as part of an error message.
+
+        Warning: Applied changes may be incomplete
+
+        The plan was created with the -target option in effect, so some changes
+        requested in the configuration may have been ignored and the output values may
+        not be fully updated. Run the following command to verify that no other
+        changes are pending:
+            terraform plan
+
+        Note that the -target option is not suitable for routine use, and is provided
+        only for exceptional situations such as recovering from errors or mistakes, or
+        when Terraform specifically suggests to use it as part of an error message.
+
+        Destroy complete! Resources: 1 destroyed.
+
+
 
 ### terraform graph
 The terraform graph command is used to generate a visual representation of either a configuration or execution plan. The output is in the DOT format, which can be used by GraphViz to generate charts.
@@ -691,7 +735,7 @@ Apply plan post taint
 
 Here you can see post applying the taint on **aws_instance.back-end** , its going to be destoryed and re-created.
 
-let do untaint.
+lets do untaint.
 
         $ terraform untaint aws_instance.back-end
         Resource instance aws_instance.back-end has been successfully untainted.
