@@ -35,9 +35,4 @@ module "onlineportal-autoscaling-group" {
       propagate_at_launch = true
     },
   ]
-
-  tags_as_map = {
-    extra_tag1 = "extra_value1"
-    extra_tag2 = "extra_value2"
-  }
 }
