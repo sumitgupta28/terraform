@@ -8,6 +8,7 @@
 | [destroy](#terraform-destroy)       | [graph](#terraform-graph)           |
 | [output](#terraform-output)         | [taint and untaint](#terraform-taint)|
 | [workspace](#terraform-workspace)   | [state](#terraform-state)          |
+| [refresh](#terraform-refresh)   |           |
 
 
 ### terraform fmt
@@ -565,7 +566,7 @@ The output of terraform graph is in the DOT format, which can easily be converte
 
 
 
-![graph](/images/graph.jpg)        
+![graph](/images/graph.JPG)        
 
 ### terraform taint
 
@@ -747,6 +748,9 @@ Terraform workspace allows to manage/store seprate env spepcific [like dev/uat/p
 As our main goal is to have the same infrastructre created for all the enviroments using single set of configuration files. we might have some difference in enviorment like they can be in different region, or using different accounts. 
 
 **The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration.**
+
+
+![workspace](images/Terraform-workspace.JPG)
 
 refer to aws-ec2-workspace. 
 
@@ -1573,3 +1577,43 @@ The terraform state push command is used to manually upload a local state file t
 This command should rarely be used. It is meant only as a utility in case manual intervention is necessary with the remote state.
 
     $ terraform state push terraform.tfstate
+
+
+
+### terraform refresh
+
+Update the state file of your infrastructure with metadata that matches the physical resources they are tracking.
+This will not modify your infrastructure, but it can modify your state file to update metadata. This metadata might cause new changes to occur when you generate a plan or call apply next.
+
+to understand this command, lets apply the /github-demo and pull state of "terraform-repo-sumitgupta28".
+
+    $ terraform state list
+    github_repository.terraform-repo-sumitgupta28
+    github_repository.terraform-repo-sumitgupta28-test
+
+    $ terraform state show github_repository.terraform-repo-sumitgupta28 | grep archived
+        archived               = false
+
+here we can see archived is false. Now lets go to github and update archived as true.
+
+go to > Settings > Danger Zone > Archive this repository and do refresh command,
+
+    $ terraform refresh
+    github_repository.terraform-repo-sumitgupta28-test: Refreshing state... [id=terraform-repo-sumitgupta28-test]
+    github_repository.terraform-repo-sumitgupta28: Refreshing state... [id=terraform-repo-sumitgupta28]
+
+    Outputs:
+
+    default_branch-1 = "main"
+    default_branch-2 = "main"
+    description-1 = "created via terraform"
+    description-2 = "created via terraform[terraform-repo-sumitgupta28-test]"
+    full_name-1 = "sumitgupta28/terraform-repo-sumitgupta28"
+    full_name-2 = "sumitgupta28/terraform-repo-sumitgupta28-test"
+    git_clone_url-1 = "git://github.com/sumitgupta28/terraform-repo-sumitgupta28.git"
+    git_clone_url-2 = "git://github.com/sumitgupta28/terraform-repo-sumitgupta28-test.git"
+
+    $ terraform state show github_repository.terraform-repo-sumitgupta28 | grep arc
+        archived               = true
+
+After refresh if we see the value of archived it becomes true as it pulled state from provider. 

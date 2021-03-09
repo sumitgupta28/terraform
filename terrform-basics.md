@@ -1,50 +1,55 @@
 
-# Terraform Variables
+## Terraform Variables
 
-## how to Define Variables [vars.tf]
+### how to Define Variables [vars.tf]
 
+```sh
         variable "<<Variable_NAME>>" {
         type        = <<string/bool/number>>
         description = "The id of the machine image (AMI) to use for the server."
         }
+```
 
 exmaple:
 
+```sh
         variable "image_id" {
         type        = string
         description = "The id of the machine image (AMI) to use for the server."
         }
-
+```
 
 ### with Default value:
-
+```sh
         variable "AWS_REGION" {
          default = "eu-west-1"
          description = "AWS Region Name."
         }
-
+```
 ### Overriding variables.
-
+```sh
         $terraform apply -var AWS_REGION=eu-west-2
-
+```
 ### Overriding variables , many in that case use -var-file.
-
+```sh
         terraform apply -var-file="testing.tfvars"
-
+```
 
 ### Sensitive fields        
-
+```sh
         variable "AWS_REGION" {
          default = "eu-west-1"
          description = "AWS Region Name."
          sensitive = true
         }
-
+```
 Plan output for : ami vaule will be shown as **(sensitive)**
 
+```sh
         # aws_instance.example2 will be created
         + resource "aws_instance" "example2" {
             + ami                          = (sensitive)
+```
 
 ### Variable Definition Precedence
 
@@ -59,19 +64,22 @@ Terraform loads variables in the following order, with later sources taking prec
 5. Any -var and -var-file options on the command line, in the order they are provided. 
 
 
-### Configuring Terraform logging
+## Configuring Terraform logging
 Terraform depends on two environment variables being configured. These two variables are TF_LOG and TF_LOG_PATH, both need to be configured our no logging will occur. I will be calling my log file terraform.txt, however, it can be named whatever you like.
 
 #### Setting in current session
 If you want to temporarily configure these for your sessions here is how you do that for both PowerShell and Bash. Once these are set the next time you run the terraform command there will be a terraform.txt file in the current working directory.
 
 #### PowerShell
+```sh
         > $env:TF_LOG="TRACE"
         > $env:TF_LOG_PATH="terraform.txt"
+```
 #### Bash
+```sh        
         $ export TF_LOG="TRACE"
         $ export TF_LOG_PATH="terraform.txt"
-
+```
 
 ## terraform State Management 
 
@@ -93,13 +101,13 @@ There are many advantages of having state in remote storage.
 
 
 ### enable remote state 
-
+```sh
         backend "s3" {
         bucket = "sumitgupta28-s3-backend"
         key    = "aws/terraform/aws-ec2-state-s3/terraform.tfstate"
         region = "us-east-1"
         }
-
+```
 
 ![Remote State](/images/remote-state.JPG)
 
@@ -120,3 +128,109 @@ Now if this Infrastrucutre resource set needs to be re-created for multiple regi
 Modules have some variables as inputs, which are located in different places (eg. A different folder, or even a different repository). They define elements from a provider and can define multiple resources in themselves:
 
 ![Terraform-Module](/images/Terraform-Module.JPG)
+
+
+## Terraform Provider Versioning
+
+There are multiple ways to specify the provider version.
+
+| Version                   | Possible Value                      |
+| -------------             | -------------                       |
+| >=1.0                     | Greater then equal to version 1.0   |
+| <=1.0                     | Less then equal to version 1.0      |
+| ~>2.0                     | Any Version in the 2.x range        |
+| >=2.0,<=2.30              | version between 2.10 and 2.30       |
+
+
+**Exmaple Provider.tf**
+
+
+```sh
+        terraform {
+        required_providers {
+        aws = {
+        source = "hashicorp/aws"
+        version = "~>2.0"
+        }
+        azurerm = {
+        source = "hashicorp/azurerm"
+        version = ">=2.40"
+        }
+
+        google = {
+        source = "hashicorp/google"
+        version = "<=3.50"
+        }
+
+        kubernetes = {
+        source = "hashicorp/kubernetes"
+        version = ">=2.0,<=3.0"
+        }
+        }
+        }
+```
+
+**init**
+```sh        
+        $ terraform init
+
+        Initializing the backend...     
+
+        Initializing provider plugins...
+        - Finding hashicorp/aws versions matching "~> 2.0"...
+        - Finding hashicorp/azurerm versions matching ">= 2.40.0"...
+        - Finding hashicorp/google versions matching "<= 3.50.0"...
+        - Finding hashicorp/kubernetes versions matching ">= 2.0.0, <= 3.0.0"...
+
+
+        - Installing hashicorp/aws v2.70.0...
+        - Installed hashicorp/aws v2.70.0 (signed by HashiCorp)
+
+        - Installing hashicorp/azurerm v2.50.0...
+        - Installed hashicorp/azurerm v2.50.0 (signed by HashiCorp)
+
+        - Installing hashicorp/google v3.50.0...
+        - Installed hashicorp/google v3.50.0 (signed by HashiCorp)
+
+        - Installing hashicorp/kubernetes v2.0.2...
+        - Installed hashicorp/kubernetes v2.0.2 (signed by HashiCorp)
+
+        Terraform has created a lock file .terraform.lock.hcl to record the provider
+        selections it made above. Include this file in your version control repository
+        so that Terraform can guarantee to make the same selections by default when
+        you run "terraform init" in the future.
+
+        Terraform has been successfully initialized!
+```
+
+**.terraform.lock.hcl** file
+```sh
+        # This file is maintained automatically by "terraform init".
+        # Manual edits may be lost in future updates.
+
+        provider "registry.terraform.io/hashicorp/aws" {
+        version     = "2.70.0"
+        constraints = "~> 2.0"
+        hashes = [**********]
+        }
+
+        provider "registry.terraform.io/hashicorp/azurerm" {
+        version     = "2.50.0"
+        constraints = ">= 2.40.0"
+        hashes = [**********]
+        }
+
+        provider "registry.terraform.io/hashicorp/google" {
+        version     = "3.50.0"
+        constraints = "<= 3.50.0"
+        hashes = [**********]
+        }
+
+        provider "registry.terraform.io/hashicorp/kubernetes" {
+        version     = "2.0.2"
+        constraints = ">= 2.0.0, <= 3.0.0"
+        hashes = [**********]
+        }
+```
+
+
