@@ -64,7 +64,9 @@ Terraform loads variables in the following order, with later sources taking prec
 5. Any -var and -var-file options on the command line, in the order they are provided. 
 
 
-## Configuring Terraform logging
+## Environment Variables
+
+### Configuring Terraform logging
 Terraform depends on two environment variables being configured. These two variables are TF_LOG and TF_LOG_PATH, both need to be configured our no logging will occur. I will be calling my log file terraform.txt, however, it can be named whatever you like.
 
 #### Setting in current session
@@ -79,6 +81,12 @@ If you want to temporarily configure these for your sessions here is how you do 
 ```sh        
         $ export TF_LOG="TRACE"
         $ export TF_LOG_PATH="terraform.txt"
+```
+
+To disable, either unset it or set it to empty. When unset, logging will default to stderr. For example:
+
+```sh
+        export TF_LOG=
 ```
 
 ## terraform State Management 

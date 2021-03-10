@@ -1,5 +1,3 @@
-
-
 ## Generate Key Pair
 
         $ ssh-keygen -f mykey

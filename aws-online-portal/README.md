@@ -19,3 +19,6 @@ run the Apply command to create resources
 ```sh
 $terrafrom apply -auto-approve
 ```
+
+
+![vpc-conffig](../images/aws-vpc.JPG)
