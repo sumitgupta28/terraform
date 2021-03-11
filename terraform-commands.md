@@ -9,7 +9,7 @@
 | [output](#terraform-output)         | [taint and untaint](#terraform-taint)|
 | [workspace](#terraform-workspace)   | [state](#terraform-state)          |
 | [refresh](#terraform-refresh)       | [show](#terraform-show)          |
-
+| [get](#terraform-get)               | [show](#terraform-show)          |
 
 ### terraform fmt
 
@@ -1686,4 +1686,62 @@ This will create a plan file named as "aws-s3.plan". now lets use the show comma
     {"format_version":"0.1","terraform_version":"0.14.6","variables":{"AWS_ACCESS_KEY":{"value":"AKIARX3P4NGCKCPDBDPJ"},"AWS_REGION":{"value":"us-east-1"},"AWS_SECRET_KEY":{"value":"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"}},"planned_values":{"root_module":{"resources":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_name":"registry.terraform.io/hashicorp/aws","schema_version":0,"values":{"acl":"private","bucket":"sumitgupta28-s3-backend","bucket_prefix":null,"cors_rule":[],"force_destroy":false,"grant":[],"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"policy":null,"replication_configuration":[],"server_side_encryption_configuration":[],"tags":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"},"website":[]}}]}},"resource_changes":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_name":"registry.terraform.io/hashicorp/aws","change":{"actions":["create"],"before":null,"after":{"acl":"private","bucket":"sumitgupta28-s3-backend","bucket_prefix":null,"cors_rule":[],"force_destroy":false,"grant":[],"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"policy":null,"replication_configuration":[],"server_side_encryption_configuration":[],"tags":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"},"website":[]},"after_unknown":{"acceleration_status":true,"arn":true,"bucket_domain_name":true,"bucket_regional_domain_name":true,"cors_rule":[],"grant":[],"hosted_zone_id":true,"id":true,"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"region":true,"replication_configuration":[],"request_payer":true,"server_side_encryption_configuration":[],"tags":{},"versioning":true,"website":[],"website_domain":true,"website_endpoint":true}}}],"configuration":{"provider_config":{"aws":{"name":"aws","expressions":{"access_key":{"references":["var.AWS_ACCESS_KEY"]},"region":{"references":["var.AWS_REGION"]},"secret_key":{"references":["var.AWS_SECRET_KEY"]}}}},"root_module":{"resources":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_config_key":"aws","expressions":{"acl":{"constant_value":"private"},"bucket":{"constant_value":"sumitgupta28-s3-backend"},"tags":{"constant_value":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"}}},"schema_version":0}],"variables":{"AWS_ACCESS_KEY":{},"AWS_REGION":{"default":"us-east-1"},"AWS_SECRET_KEY":{}}}}}
 
 ```
+#### terraform get
+
+- Downloads and installs modules needed for the configuration given by PATH.
+
+- This recursively downloads all modules needed, such as modules imported by modules imported by the root and so on. If a module is already downloaded, it will not be redownloaded or checked for updates unless the -update flag is specified.
+
+- Module installation also happens automatically by default as part of the "terraform init" command, so you should rarely need to run this command separately.
+
+
+To see how this command works , lets to to "018-aws-modules" folder and run below commands. here can see we are using the different aws modules and and corresponding sources.
+
+```sh
+    $ grep 'module "' *.tf
+    autoscaling.tf:module "onlineportal-autoscaling-group" {
+    ec2-instance.tf:module "onlineportal-front-end-server" {
+    ec2-instance.tf:module "onlineportal-back-end-server" { 
+    security-group.tf:module "http-security-group" {        
+    security-group.tf:module "ssh-security-group" {
+    vpc.tf:module "sgsys-onlineportal-vpc" {
+
+    $ grep 'source' *.tf
+    autoscaling.tf:  source  = "terraform-aws-modules/autoscaling/aws"
+    ec2-instance.tf:  source  = "terraform-aws-modules/ec2-instance/aws"
+    ec2-instance.tf:  source  = "terraform-aws-modules/ec2-instance/aws"
+    security-group.tf:  source  = "terraform-aws-modules/security-group/aws"
+    security-group.tf:  source  = "terraform-aws-modules/security-group/aws"
+    vpc.tf:  source     = "terraform-aws-modules/vpc/aws"
+```
+
+Now lets run the get command 
+
+```sh
+    $ terraform get
+    Downloading terraform-aws-modules/security-group/aws 3.18.0 for http-security-group...
+    - http-security-group in .terraform\modules\http-security-group
+    Downloading terraform-aws-modules/autoscaling/aws 3.9.0 for onlineportal-autoscaling-group...
+    - onlineportal-autoscaling-group in .terraform\modules\onlineportal-autoscaling-group
+    Downloading terraform-aws-modules/ec2-instance/aws 2.17.0 for onlineportal-back-end-server...
+    - onlineportal-back-end-server in .terraform\modules\onlineportal-back-end-server
+    Downloading terraform-aws-modules/ec2-instance/aws 2.17.0 for onlineportal-front-end-server...
+    - onlineportal-front-end-server in .terraform\modules\onlineportal-front-end-server
+    Downloading terraform-aws-modules/vpc/aws 2.59.0 for sgsys-onlineportal-vpc...
+    - sgsys-onlineportal-vpc in .terraform\modules\sgsys-onlineportal-vpc
+    Downloading terraform-aws-modules/security-group/aws 3.18.0 for ssh-security-group...
+    - ssh-security-group in .terraform\modules\ssh-security-group
+```
+
+Here we can seee it reading the module insturctions and downloading the modules and copying them 
+in **.terraform\modules** folder.
+
+- console       Try Terraform expressions at an interactive command prompt
+- force-unlock  Release a stuck lock on the current workspace
+- import        Associate existing infrastructure with a Terraform resource
+- refresh       Update the state to match remote systems
+
+
+
+
 
