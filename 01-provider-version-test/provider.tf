@@ -14,13 +14,9 @@ terraform {
       version = "<=3.50"
     }
 
-    //kubernetes = {
-    //  source = "hashicorp/kubernetes"
-    //  version = ">=2.0,<=3.0"
-    //}
-  }
-
-  provider "kubernetes" {
-    version = ">=2.0,<=3.0"
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = ">=2.0,<=3.0"
+    }
   }
 }

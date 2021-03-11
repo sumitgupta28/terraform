@@ -1,0 +1,120 @@
+# How to Run 
+
+Once you are in this directory [02-variables]. 
+
+> Create a new file **terraform.tfvars** with below content 
+```note
+AWS_ACCESS_KEY = "<<YOUR_AWS_ACCESS_KEY>>"
+AWS_SECRET_KEY = "<<YOUR_AWS_SECRET_KEY>>" 
+```
+
+## Running the Plan and generating the Plan file.
+
+
+### with default values.
+
+Then run the plan command to see what resources its going to create
+
+```sh
+    terraform plan -out default-variable.plan
+```
+
+Once done it will generate [default-variable.plan](default-variable.plan) , here all the variables values are picked up 
+from [terraform.tfvars](terraform.tfvars).
+
+'''sh
+    $ terraform show -json default-variable.plan
+'''
+
+### with enviroment variables.
+
+
+```sh
+  terraform plan -var "EC2-INSTANCE-NAME-FRONT-END=front-end-instance" -out variable-with-external-variable.plan
+```
+
+Once done it will generate [variable-with-external-variable.plan](variable-with-external-variable.plan) , here all the variables values are picked up from [terraform.tfvars](terraform.tfvars) except the "EC2-INSTANCE-NAME-FRONT-END" which is provided as enviroment variable. 
+
+'''sh
+    $ terraform show -json variable-with-external-variable.plan 
+'''
+
+
+In the plan you will also see the how the variables and maps are used.
+
+![variables-map](../images/variables-map.JPG)
+
+
+## dynamic block with for-each
+
+In the plan you will also see the dynamic block with for-each is used to create ingress for security group.
+
+![dynamic_for-each](../images/dynamic_for-each.JPG)
+
+## for-loop
+
+In the plan you will also see the  for-loop is used to create tags.
+
+![for-loop-merge](../images/for-loop-merge.JPG)
+
+
+## How to Assign Values from the Root Module:
+
+1. Through commands on the CLI_
+
+```sh
+  $ terraform plan -var "EC2_INSTANCE_NAME_FRONT_END=front-end-instance" -target aws_instance.front-end
+  
+```
+
+## The “tfvars” file
+*NOTE: *If you have any files with the name “terraform.tfvars” or “terraform.tfvars.json”, then these variable definition files are loaded automatically.
+
+```sh
+    $ terraform plan -var-file custom.tfvars -target aws_instance.front-end
+```
+
+Have a look to ec2 instance name in above plan output
+
+
+### Using Environment variables**
+
+This is a dynamic value that has been set-up on your operating system and it affects how any process on your system works. These are always in pairs. In this case, your system is searched for the environment variables whose name might be in the format as seen below:
+
+```sh
+    $ export TF_VAR_<<KEY>>=value
+```
+
+Below is an example of how you may assign values in this case:
+
+```sh
+
+  $ export TF_VAR_EC2_INSTANCE_NAME_FRONT_END=front
+  $ terraform plan -target aws_instance.front-end
+
+```
+
+Have a look to ec2 instance name in above plan output.
+
+## [The count Meta-Argument](https://www.terraform.io/docs/language/meta-arguments/count.html#basic-syntax)
+
+Count is a meta-argument defined by the Terraform language. It can be used with modules and with every resource type.
+
+The count meta-argument accepts a whole number, and creates that many instances of the resource or module. Each instance has a distinct infrastructure object associated with it, and each is separately created, updated, or destroyed when the configuration is applied.
+
+```sh
+    resource "aws_instance" "server" {
+    count = 4 # create four similar EC2 instances
+
+    ami           = "ami-a1b2c3d4"
+    instance_type = "t2.micro"
+
+    tags = {
+        Name = "Server ${count.index}"
+    }
+    }
+```
+
+[aws-user-count.tf](aws-user-count.tf) shows how this count argument can be used to created multiple resource instance.
+
+![count-meta-argument.JPG](../images/count-meta-argument.JPG)

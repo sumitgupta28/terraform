@@ -1,0 +1,1 @@
+EC2_INSTANCE_NAME_FRONT_END="front-end-instance-custom"
