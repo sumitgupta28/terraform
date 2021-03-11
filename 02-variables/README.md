@@ -118,3 +118,19 @@ The count meta-argument accepts a whole number, and creates that many instances 
 [aws-user-count.tf](aws-user-count.tf) shows how this count argument can be used to created multiple resource instance.
 
 ![count-meta-argument.JPG](../images/count-meta-argument.JPG)
+
+
+### Conditional Operators**
+
+Run below plan commands and see the resouce discription of **aws_instance.front-end-dev** and **aws_instance.front-end-prod**. and you can see that based on the provided value of ENV it will create the EC2 instance count. 
+
+
+```sh
+    $ terraform plan -var 'ENV=DEV' -target aws_instance.front-end-dev -target aws_instance.front-end-prod | grep Plan
+    Plan: 1 to add, 0 to change, 0 to destroy.
+
+    $ terraform plan -var 'ENV=PROD' -target aws_instance.front-end-dev -target aws_instance.front-end-prod | grep Plan
+    Plan: 2 to add, 0 to change, 0 to destroy.
+```
+
+![conditional-express.JPG](../images/conditional-express.JPG)

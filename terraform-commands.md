@@ -8,7 +8,7 @@
 | [destroy](#terraform-destroy)       | [graph](#terraform-graph)           |
 | [output](#terraform-output)         | [taint and untaint](#terraform-taint)|
 | [workspace](#terraform-workspace)   | [state](#terraform-state)          |
-| [refresh](#terraform-refresh)   |           |
+| [refresh](#terraform-refresh)       | [show](#terraform-show)          |
 
 
 ### terraform fmt
@@ -1617,3 +1617,73 @@ go to > Settings > Danger Zone > Archive this repository and do refresh command,
         archived               = true
 
 After refresh if we see the value of archived it becomes true as it pulled state from provider. 
+
+
+#### terraform show
+
+Reads and outputs a Terraform state or plan file in a human-readable form. 
+
+**If no path is specified, the current state will be shown.**
+
+Options:
+  -no-color           If specified, output won't contain any color.
+  -json               If specified, output the Terraform plan or state in
+                      a machine-readable form.
+
+to understand this lets go to **011-aws-create-s3** and run below plan command with -out parameter.
+
+```sh
+
+$ terraform plan -out aws-s3.plan
+
+    An execution plan has been generated and is shown below.
+    Resource actions are indicated with the following symbols:
+    + create
+
+    Terraform will perform the following actions:
+
+    # aws_s3_bucket.sumitgupta28-s3-backend will be created
+    + resource "aws_s3_bucket" "sumitgupta28-s3-backend" {
+        + acceleration_status         = (known after apply)
+        + acl                         = "private"
+        + arn                         = (known after apply)
+        + bucket                      = "sumitgupta28-s3-backend"
+        + bucket_domain_name          = (known after apply)
+        + bucket_regional_domain_name = (known after apply)
+        + force_destroy               = false
+        + hosted_zone_id              = (known after apply)
+        + id                          = (known after apply)
+        + region                      = (known after apply)
+        + request_payer               = (known after apply)
+        + tags                        = {
+            + "Environment" = "Dev"
+            + "Name"        = "sumitgupta28-s3-backend"
+            }
+        + website_domain              = (known after apply)
+        + website_endpoint            = (known after apply)
+
+        + versioning {
+            + enabled    = (known after apply)
+            + mfa_delete = (known after apply)
+            }
+        }
+
+    Plan: 1 to add, 0 to change, 0 to destroy.
+
+    ------------------------------------------------------------------------
+
+    This plan was saved to: aws-s3.plan
+
+    To perform exactly these actions, run the following command to apply:
+        terraform apply "aws-s3.plan"
+
+```
+
+This will create a plan file named as "aws-s3.plan". now lets use the show command to see the plan .
+
+```sh 
+    $ terraform show -json aws-s3.plan
+    {"format_version":"0.1","terraform_version":"0.14.6","variables":{"AWS_ACCESS_KEY":{"value":"AKIARX3P4NGCKCPDBDPJ"},"AWS_REGION":{"value":"us-east-1"},"AWS_SECRET_KEY":{"value":"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"}},"planned_values":{"root_module":{"resources":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_name":"registry.terraform.io/hashicorp/aws","schema_version":0,"values":{"acl":"private","bucket":"sumitgupta28-s3-backend","bucket_prefix":null,"cors_rule":[],"force_destroy":false,"grant":[],"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"policy":null,"replication_configuration":[],"server_side_encryption_configuration":[],"tags":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"},"website":[]}}]}},"resource_changes":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_name":"registry.terraform.io/hashicorp/aws","change":{"actions":["create"],"before":null,"after":{"acl":"private","bucket":"sumitgupta28-s3-backend","bucket_prefix":null,"cors_rule":[],"force_destroy":false,"grant":[],"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"policy":null,"replication_configuration":[],"server_side_encryption_configuration":[],"tags":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"},"website":[]},"after_unknown":{"acceleration_status":true,"arn":true,"bucket_domain_name":true,"bucket_regional_domain_name":true,"cors_rule":[],"grant":[],"hosted_zone_id":true,"id":true,"lifecycle_rule":[],"logging":[],"object_lock_configuration":[],"region":true,"replication_configuration":[],"request_payer":true,"server_side_encryption_configuration":[],"tags":{},"versioning":true,"website":[],"website_domain":true,"website_endpoint":true}}}],"configuration":{"provider_config":{"aws":{"name":"aws","expressions":{"access_key":{"references":["var.AWS_ACCESS_KEY"]},"region":{"references":["var.AWS_REGION"]},"secret_key":{"references":["var.AWS_SECRET_KEY"]}}}},"root_module":{"resources":[{"address":"aws_s3_bucket.sumitgupta28-s3-backend","mode":"managed","type":"aws_s3_bucket","name":"sumitgupta28-s3-backend","provider_config_key":"aws","expressions":{"acl":{"constant_value":"private"},"bucket":{"constant_value":"sumitgupta28-s3-backend"},"tags":{"constant_value":{"Environment":"Dev","Name":"sumitgupta28-s3-backend"}}},"schema_version":0}],"variables":{"AWS_ACCESS_KEY":{},"AWS_REGION":{"default":"us-east-1"},"AWS_SECRET_KEY":{}}}}}
+
+```
+

@@ -8,6 +8,7 @@ variable "AWS_SECRET_KEY" {
 }
 
 variable "ENV" {
+  description = "to find if its DEV or PROD env"
   default = "DEV"
 }
 
@@ -65,3 +66,5 @@ variable "project_tags_back_end" {
     Application = "online-portal"
   }
 }
+
+

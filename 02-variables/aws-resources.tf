@@ -71,4 +71,16 @@ output "front-end-public_ip" {
   value = aws_instance.front-end.public_ip
 }
 
+## EC2 Instance aws_instance dev
+resource "aws_instance" "front-end-dev" {
+  ami           = var.AMIS[var.AWS_REGION]
+  instance_type = "t2.micro"
+  count = var.ENV == "DEV" ? 1 :0 
+}
 
+## EC2 Instance aws_instance prod
+resource "aws_instance" "front-end-prod" {
+  ami           = var.AMIS[var.AWS_REGION]
+  instance_type = "t2.micro"
+  count = var.ENV == "PROD" ? 2 :0 
+}
