@@ -120,7 +120,7 @@ The count meta-argument accepts a whole number, and creates that many instances 
 ![count-meta-argument.JPG](../images/count-meta-argument.JPG)
 
 
-### Conditional Operators**
+### Conditional Operators
 
 Run below plan commands and see the resouce discription of **aws_instance.front-end-dev** and **aws_instance.front-end-prod**. and you can see that based on the provided value of ENV it will create the EC2 instance count. 
 
@@ -134,3 +134,77 @@ Run below plan commands and see the resouce discription of **aws_instance.front-
 ```
 
 ![conditional-express.JPG](../images/conditional-express.JPG)
+
+
+### [Splat Expressions](https://www.terraform.io/docs/language/expressions/splat.html)
+
+The splat expression captures all objects in a list that share an attribute. The special * symbol iterates over all of the elements of a given list and returns information based on the shared attribute you define.
+
+Without the splat expression, Terraform would not be able to output the entire array of your instances and would only return the first item in the array.
+
+
+here in below resource defination we are creating **2 iAM users** and **user name are assigned via list elb-names**
+
+```
+    resource "aws_iam_user" "lb-count-list" {
+    name = var.elb-names[count.index]
+    count = 2
+    }
+
+    variable "elb-names" {
+    type = list
+    default = ["dev-loadbalance","prod-loadbalance"]
+    }
+
+```
+Now if we would like to print the names for all the users we can use the splat expression.
+
+```
+    output "aws_iam_user_lb-count-list-names" {
+    value = aws_iam_user.lb-count-list[*].name
+    }
+
+```
+
+let try to see the plan and see how the splat expression print the user names
+
+```
+    $ terraform plan -target aws_iam_user.lb-count-list
+
+    An execution plan has been generated and is shown below.
+    Resource actions are indicated with the following symbols:
+    + create
+
+    Terraform will perform the following actions:
+
+    # aws_iam_user.lb-count-list[0] will be created
+    + resource "aws_iam_user" "lb-count-list" {    
+        + arn           = (known after apply)
+        + force_destroy = false
+        + id            = (known after apply)
+        + name          = "dev-loadbalance"
+        + path          = "/"
+        + unique_id     = (known after apply)
+        }
+
+    # aws_iam_user.lb-count-list[1] will be created
+    + resource "aws_iam_user" "lb-count-list" {
+        + arn           = (known after apply)
+        + force_destroy = false
+        + id            = (known after apply)
+        + name          = "prod-loadbalance"
+        + path          = "/"
+        + unique_id     = (known after apply)
+        }
+
+    Plan: 2 to add, 0 to change, 0 to destroy.
+
+    Changes to Outputs:
+    + aws_iam_user_lb-count-list-names = [
+        + "dev-loadbalance",
+        + "prod-loadbalance",
+        ]
+
+```
+
+![Splat-Expressions](../images/Splat-Expressions.JPG)

@@ -665,61 +665,7 @@ Apply plan post taint
                     "component"   = "frontend"
                     "environment" = "production"
                 }
-            ~ tenancy                      = "default" -> (known after apply)
-                # (5 unchanged attributes hidden)
-
-            - credit_specification {
-                - cpu_credits = "standard" -> null
-                }
-
-            + ebs_block_device {
-                + delete_on_termination = (known after apply)
-                + device_name           = (known after apply)
-                + encrypted             = (known after apply)
-                + iops                  = (known after apply)
-                + kms_key_id            = (known after apply)
-                + snapshot_id           = (known after apply)
-                + tags                  = (known after apply)
-                + throughput            = (known after apply)
-                + volume_id             = (known after apply)
-                + volume_size           = (known after apply)
-                + volume_type           = (known after apply)
-                }
-
-            ~ enclave_options {
-                ~ enabled = false -> (known after apply)
-                }
-
-            + ephemeral_block_device {
-                + device_name  = (known after apply)
-                + no_device    = (known after apply)
-                + virtual_name = (known after apply)
-                }
-
-            ~ metadata_options {
-                ~ http_endpoint               = "enabled" -> (known after apply)
-                ~ http_put_response_hop_limit = 1 -> (known after apply)
-                ~ http_tokens                 = "optional" -> (known after apply)
-                }
-
-            + network_interface {
-                + delete_on_termination = (known after apply)
-                + device_index          = (known after apply)
-                + network_interface_id  = (known after apply)
-                }
-
-            ~ root_block_device {
-                ~ delete_on_termination = true -> (known after apply)
-                ~ device_name           = "/dev/xvda" -> (known after apply)
-                ~ encrypted             = false -> (known after apply)
-                ~ iops                  = 100 -> (known after apply)
-                + kms_key_id            = (known after apply)
-                ~ tags                  = {} -> (known after apply)
-                ~ throughput            = 0 -> (known after apply)
-                ~ volume_id             = "vol-05bc2aeca3ac72be2" -> (known after apply)
-                ~ volume_size           = 8 -> (known after apply)
-                ~ volume_type           = "gp2" -> (known after apply)
-                }
+               <<...truncated the output ...>> 
             }
 
         Plan: 1 to add, 0 to change, 1 to destroy.
@@ -1736,7 +1682,13 @@ Now lets run the get command
 Here we can seee it reading the module insturctions and downloading the modules and copying them 
 in **.terraform\modules** folder.
 
-- console       Try Terraform expressions at an interactive command prompt
+
+#### terraform console
+
+The terraform console  command is useful for testing interpolations before using them in configurations. Terraform console will read configured state even if it is remote.
+
+Try Terraform expressions at an interactive command prompt
+
 - force-unlock  Release a stuck lock on the current workspace
 - import        Associate existing infrastructure with a Terraform resource
 - refresh       Update the state to match remote systems
