@@ -1,3 +1,10 @@
+
+# Provisioners
+
+Provisioners can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service.
+
+
+
 # How to Run 
 
 Once you are in this directory. 
@@ -110,3 +117,15 @@ You cannot pass any arguments to scripts using the script or scripts arguments t
         }
         }
 ```
+
+
+[Provisioners Without a Resource](https://www.terraform.io/docs/language/resources/provisioners/null_resource.html)
+
+If you need to run provisioners that aren't directly associated with a specific resource, you can associate them with a **null_resource**.
+
+Instances of **null_resource** are treated like normal resources, but they don't do anything. 
+Like with any other resource, you can configure provisioners and connection details on a null_resource. 
+You can also use its triggers argument and any meta-arguments to control exactly where in the dependency graph its provisioners will run.
+
+
+![Terraform-Provisioner-types](../images/Terraform-Provisioner-types.JPG)
