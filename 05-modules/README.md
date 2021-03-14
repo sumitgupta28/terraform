@@ -47,3 +47,31 @@ $terrafrom apply -auto-approve
 ```
 
 
+## Module Source 
+
+### Local Path - Must start with ./ or ../
+
+```
+    source = "./modules/ec2"
+or
+    source = "../modules/ec2"
+```
+
+
+### Git url - by default it pulles from default branch
+
+```
+    source = "git::https://github.com/ec2.git"
+or
+    source = "git::ssh://github.com/ec2.git"
+or
+    source = "git::ssh://github.com/ec2.git?ref=V1.2.0"
+    source = "git::https://github.com/ec2.git?ref=V1.2.0"
+
+or
+    source = "github.com/ec2.git?ref=V1.2.0"
+
+or
+    source = "git@github.com/ec2.git?ref=V1.2.0"
+
+```

@@ -1,4 +1,6 @@
-
+*.tfstate
+*.tfstate.*
+.terraform
 */terraform.tfvars
 */.terraform.lock.hcl
 */.terraform/**
@@ -11,9 +13,11 @@
 */mykey.pub
 */*.plan
 */terraform.tfvars
+*/*.tfvars
 */terraform.tfstate
 */terraform.tfstate.backup
 */.terraform
 */mykey*
 */my-access-key
 */my-access-key.pub
+*/crash.log

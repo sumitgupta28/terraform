@@ -8,7 +8,7 @@
 | [destroy](#terraform-destroy)       | [graph](#terraform-graph)           |
 | [output](#terraform-output)         | [taint and untaint](#terraform-taint)|
 | [workspace](#terraform-workspace)   | [state](#terraform-state)          |
-| [refresh](#terraform-refresh)       | [show](#terraform-show)          |
+| [refresh](#terraform-refresh)       | [force-unlock](#terraform-force-unlock)          |
 | [get](#terraform-get)               | [show](#terraform-show)          |
 
 ### terraform fmt
@@ -689,7 +689,7 @@ lets do untaint.
 
 ### terraform workspace
 
-Terraform workspace allows to manage/store seprate env spepcific [like dev/uat/prod] state for the resources created with single set of configuration files. 
+Terraform workspace allows to manage/store seprate env spepcific [like dev/uat/prod] state for the resources created with single set of parameterized configuration files. 
 
 As our main goal is to have the same infrastructre created for all the enviroments using single set of configuration files. we might have some difference in enviorment like they can be in different region, or using different accounts. 
 
@@ -1119,25 +1119,35 @@ This does not modify infrastructure, but does modify the state file. If the stat
 
 #### terraform state mv
 
-This command is used to move the items in a terraform state. this is used to rename the existing resource without destroying and re-creating it. A backup file will be created before applying changes to main state file. 
+This command will move an item matched by the address given to the destination address. This command can also move to a destination address in a completely different state file.
+
+This can be used for simple resource renaming, moving items to and from a module, moving entire modules, and more. And because this command can also move data to a completely new state, it can also be used for refactoring one configuration into multiple separately managed Terraform configurations.
+
+This command will output a backup copy of the state prior to saving any changes. The backup cannot be disabled. Due to the destructive nature of this command, backups are required.
+
+If you're moving an item to a different state file, a backup will be created for each state file.
 
 This commond will updated the resource on existing "terraform.tfstate" file
 
+```sh
     $ terraform state mv aws_instance.front-end aws_instance.front-end-server
     Move "aws_instance.front-end" to "aws_instance.front-end-server"
     Successfully moved 1 object(s).
-
+```
 This commond will extract the  resource and place on a new "terraform.tfstate" file provided with **-state-out**
 
+```sh
     $ terraform state mv -state-out=terraform-ec2.tfstate  aws_instance.front-end aws_instance.front-end-server
     Move "aws_instance.front-end" to "aws_instance.front-end-server"
     Successfully moved 1 object(s).
+```
 
 #### terraform state rm 
 
 State rm command is used to remove resource from terraform state. Resource won't be destoryed on provider , but it
 won't be no longer managed by terraform. So after applying state rm on any resource if destroy is applied, resource won't be deleted on provider.
 
+```
     $ terraform state list
     aws_instance.back-end
     aws_instance.front-end
@@ -1147,12 +1157,16 @@ won't be no longer managed by terraform. So after applying state rm on any resou
     $ terraform state rm aws_instance.back-end
     Removed aws_instance.back-end
     Successfully removed 1 resource instance(s).
+```
+
 
 #### terraform state pull 
 
 The terraform state pull command is used to manually download and output the state from remote state. This command also works with local state.
 
 lets apply the at /aws-ec2
+
+```
 
     $ terraform apply
 
@@ -1195,8 +1209,11 @@ lets apply the at /aws-ec2
     front-end-arn = "arn:aws:ec2:us-east-1:119956859268:instance/i-0a66277aa1e4a5753"
     front-end-public_ip = "3.95.13.128"
 
+```
+
 now try to pull the state
 
+```
     $ terraform state pull
     {
     "version": 4,
@@ -1515,6 +1532,7 @@ now try to pull the state
         }
     ]
     }
+```
 
 #### terraform state push 
 
@@ -1522,8 +1540,11 @@ The terraform state push command is used to manually upload a local state file t
 
 This command should rarely be used. It is meant only as a utility in case manual intervention is necessary with the remote state.
 
+```sh
+
     $ terraform state push terraform.tfstate
 
+```
 
 
 ### terraform refresh
@@ -1533,17 +1554,21 @@ This will not modify your infrastructure, but it can modify your state file to u
 
 to understand this command, lets apply the /github-demo and pull state of "terraform-repo-sumitgupta28".
 
+```sh
+
     $ terraform state list
     github_repository.terraform-repo-sumitgupta28
     github_repository.terraform-repo-sumitgupta28-test
 
     $ terraform state show github_repository.terraform-repo-sumitgupta28 | grep archived
         archived               = false
+```
 
 here we can see archived is false. Now lets go to github and update archived as true.
 
 go to > Settings > Danger Zone > Archive this repository and do refresh command,
 
+```
     $ terraform refresh
     github_repository.terraform-repo-sumitgupta28-test: Refreshing state... [id=terraform-repo-sumitgupta28-test]
     github_repository.terraform-repo-sumitgupta28: Refreshing state... [id=terraform-repo-sumitgupta28]
@@ -1562,6 +1587,8 @@ go to > Settings > Danger Zone > Archive this repository and do refresh command,
     $ terraform state show github_repository.terraform-repo-sumitgupta28 | grep arc
         archived               = true
 
+```
+
 After refresh if we see the value of archived it becomes true as it pulled state from provider. 
 
 
@@ -1571,16 +1598,18 @@ Reads and outputs a Terraform state or plan file in a human-readable form.
 
 **If no path is specified, the current state will be shown.**
 
+```
+
 Options:
   -no-color           If specified, output won't contain any color.
   -json               If specified, output the Terraform plan or state in
                       a machine-readable form.
+```
 
 to understand this lets go to **011-aws-create-s3** and run below plan command with -out parameter.
 
 ```sh
-
-$ terraform plan -out aws-s3.plan
+    $ terraform plan -out aws-s3.plan
 
     An execution plan has been generated and is shown below.
     Resource actions are indicated with the following symbols:
@@ -1694,6 +1723,14 @@ Try Terraform expressions at an interactive command prompt
 - refresh       Update the state to match remote systems
 
 
+### [terraform force-unlock](https://www.terraform.io/docs/cli/commands/force-unlock.html)
 
+Manually unlock the state for the defined configuration.
+
+This will not modify your infrastructure. This command removes the lock on the state for the current configuration. The behavior of this lock is dependent on the backend being used. Local state files cannot be unlocked by another process.
+
+```sh
+    $terraform force-unlock LOCK_ID
+```
 
 

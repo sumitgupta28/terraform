@@ -112,7 +112,7 @@ There are many advantages of having state in remote storage.
 ```sh
         backend "s3" {
         bucket = "sumitgupta28-s3-backend"
-        key    = "aws/terraform/aws-ec2-state-s3/terraform.tfstate"
+        key    = "terraform.tfstate"
         region = "us-east-1"
         }
 ```
