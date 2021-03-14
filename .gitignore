@@ -17,6 +17,10 @@
 */terraform.tfstate
 */terraform.tfstate.backup
 */.terraform
+*/manual-ec2-keypair
+*/manual-ec2-keypair.pub
+
+
 */mykey*
 */my-access-key
 */my-access-key.pub

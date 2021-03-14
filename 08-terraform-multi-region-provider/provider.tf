@@ -1,8 +1,8 @@
 provider "aws" {
-  region = var.AWS_REGION
+  region = "us-east-1"
 }
 
 provider "aws" {
-  region = var.AWS_OREGON_REGION
+  region = "us-west-2"
   alias  = "oregon"
 }
