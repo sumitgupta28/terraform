@@ -46,6 +46,8 @@ run the Apply command to create resources
 $terrafrom apply -auto-approve
 ```
 
+![Terraform-Module](../images/Terraform-Module.JPG)
+
 
 ## Module Source 
 
