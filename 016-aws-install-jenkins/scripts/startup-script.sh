@@ -18,16 +18,6 @@ sudo systemctl start jenkins
 sudo systemctl enable jenkins
 sudo systemctl status jenkins
 
-
-echo "Download Terrafrom"
-export TERRAFORM_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest |  grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'`
-wget https://releases.hashicorp.com/terraform/${TERRAFORM_VER}/terraform_${TERRAFORM_VER}_linux_amd64.zip
-
 echo "install Unzip"
 sudo yum -y install unzip
 
-echo "Unzip terraform"
-unzip terraform_${TERRAFORM_VER}_linux_amd64.zip
-
-echo "Move binary file to the /usr/local/bin directory"
-sudo mv terraform /usr/local/bin/

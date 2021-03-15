@@ -1,21 +1,15 @@
 # How to Run 
 
-Once you are in this directory. 
+## [Generate a key pair with name "mykey"](../generate-key-pair.md)
 
-> Create a new file **terraform.tfvars** with below content 
-```note
-AWS_ACCESS_KEY = "<<YOUR_AWS_ACCESS_KEY>>"
-AWS_SECRET_KEY = "<<YOUR_AWS_SECRET_KEY>>" 
-```
+## [Set AWS Credentials](../provide-aws-cred-input.md) 
 
-Then run the plan command to see what resources its going to create
-
+## Then run the plan command to see what resources its going to create
 ```sh
 $terrafrom plan
 ```
 
-run the Apply command to create resources 
-
+## run the Apply command to create resources 
 ```sh
 $terrafrom apply -auto-approve
 ```

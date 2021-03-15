@@ -59,38 +59,7 @@ There are a few key reasons developers choose to use Terraform over other Infras
 ![vs. Ansible](images/terraform-life-cycle.JPG)
 
 
-## How to Run the examples
 
-Provide **AWS_ACCESS_KEY** and **AWS_SECRET_KEY** as input to terraform
-
-![how-to-run](images/how-to-run.JPG)
-
-### Method#1 using terraform.tfvars
-> Create a new file **terraform.tfvars** with below content inside the project folder
-
-```sh
-    AWS_ACCESS_KEY = "<<YOUR_AWS_ACCESS_KEY>>"
-    AWS_SECRET_KEY = "<<AWS_SECRET_KEY>>" 
-```
-
-### Method#2 using env variables.
-
-```sh
-export AWS_ACCESS_KEY="<<YOUR_AWS_ACCESS_KEY>>"
-export AWS_SECRET_KEY="<<AWS_SECRET_KEY>>"
-```
-
-### Method#3 input as var to terraform commands
-
-```sh
-terraform plan -var AWS_ACCESS_KEY="<<YOUR_AWS_ACCESS_KEY>>" -var AWS_SECRET_KEY="<<AWS_SECRET_KEY>>"
-terraform apply -var AWS_ACCESS_KEY="<<YOUR_AWS_ACCESS_KEY>>" -var AWS_SECRET_KEY="<<AWS_SECRET_KEY>>"
-```
-
-### Method#4 use the aws cli configuration. 
-
-- step 1, remove AWS_ACCESS_KEY/AWS_SECRET_KEY ref from **vars.tf** and **provider.tf**
-- step 2, perfrom aws cli configuration.
 
 
 ## Troubleshooting tips
@@ -122,15 +91,12 @@ If you see below error it means you need to create a new set of key pair and AWS
 
 - [01-provider-version-test](./01-provider-version-test/README.md)
 
-**Description**
-    
+   
     1. How the different provider's can be setup
     2. How the provider's versioning work.
     3. Location where providers are downloaded 
 
 - [02-variables](./02-variables/README.md)
-
-**Description**
 
     1. How to configure variable. 
     2. How to use MAP to get the AMI for a specific region.
@@ -159,6 +125,7 @@ If you see below error it means you need to create a new set of key pair and AWS
     1. What is modules and Terraform Registry?
     2. How to configure Module Source .
     3. How to create simple module and use it.
+    4. How to use the ouput variable from module.
     
 - [06-terraform-state](./06-terraform-state/README.md)
 
@@ -190,8 +157,6 @@ If you see below error it means you need to create a new set of key pair and AWS
 
     1. Demo to create ec2 instance with terraform and associate them with security group.
     2. Demo to create security group.
-    
-
 
 - [013-aws-ec2-state-s3](./013-aws-ec2-state-s3/README.md)
 
