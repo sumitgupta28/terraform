@@ -101,7 +101,30 @@ If you see below error it means you need to create a new set of key pair and AWS
             status code: 403,
 ```
 
-## [Terraform Commands](./terraform-commands.md)
+-  [Terraform Basics](./terrform-basics.md)
 
+-  [Terraform Commands](./terraform-commands.md)
 
-## [Terraform AWS Demo](./aws-terraform-example.md)
+-  [Terraform AWS Demo](./aws-terraform-example.md)
+
+## Examples 
+
+- [01-provider-version-test](./01-provider-version-test/README.md)
+- [02-variables](./02-variables/README.md)
+- [03-datasource](./03-datasource/README.md)
+- [04-provisioner](./04-provisioner/README.md)
+- [05-modules](./05-modules/README.md)
+- [06-terraform-state](./06-terraform-state/README.md)
+- [07-terraform-state-import](./07-terraform-state-import/README.md)
+- [08-terraform-multi-region-provider](./08-terraform-multi-region-provider/README.md)
+- [09-terraform-cloud-demo](./09-terraform-cloud-demo/README.md)
+- [010-github-demo](./010-github-demo/README.md)
+- [011-aws-create-s3](./011-aws-create-s3/README.md)
+- [012-aws-ec2](./012-aws-ec2/README.md)
+- [013-aws-ec2-state-s3](./013-aws-ec2-state-s3/README.md)
+- [014-aws-ec2-workspace](./014-aws-ec2-workspace/README.md)
+- [015-aws-ec2-maria-db](./015-aws-ec2-maria-db/README.md)
+- [016-aws-install-jenkins](./016-aws-install-jenkins/README.md)
+- [017-aws-online-portal](./017-aws-online-portal/README.md)
+- [018-aws-modules](./018-aws-modules/README.md)
+
