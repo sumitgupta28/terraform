@@ -93,13 +93,24 @@ terraform apply -var AWS_ACCESS_KEY="<<YOUR_AWS_ACCESS_KEY>>" -var AWS_SECRET_KE
 - step 2, perfrom aws cli configuration.
 
 
-### Troubleshoot tips
+## Troubleshooting tips
+
+### [1] Troubleshooting tips  
+
 If you see below error it means you need to create a new set of key pair and AWS might have invalidate it because of various reasons.
 
 ```
     Error: error configuring Terraform AWS Provider: error validating provider credentials: error calling sts:GetCallerIdentity: InvalidClientTokenId: The security token included in the request is invalid.
             status code: 403,
 ```
+
+## git ignore
+
+
+- Follow the Git Ignore from [link](https://github.com/github/gitignore/blob/master/Terraform.gitignore)
+
+
+## Before you try examples...  
 
 -  [Terraform Basics](./terrform-basics.md)
 
@@ -110,21 +121,102 @@ If you see below error it means you need to create a new set of key pair and AWS
 ## Examples 
 
 - [01-provider-version-test](./01-provider-version-test/README.md)
+
+**Description**
+    
+    1. How the different provider's can be setup
+    2. How the provider's versioning work.
+    3. Location where providers are downloaded 
+
 - [02-variables](./02-variables/README.md)
+
+**Description**
+
+    1. How to configure variable. 
+    2. How to use MAP to get the AMI for a specific region.
+    3. How to use MAP to create tags.
+    4. How to use LIST for storing cider's. 
+    5. How to use dynamic blocks in security group for the multiple entires for ingress port.
+    6. How to use count and terraform splat expression.
+    7. How to use custom.tfvars. 
+
+
 - [03-datasource](./03-datasource/README.md)
+
+    1. What is data source.
+    2. How to use data source to pull the free tire AMI list for EC2 instance. 
+
 - [04-provisioner](./04-provisioner/README.md)
+
+    1. What is provisioner?
+    2. Local and Remote Provisioner.
+    3. inline commands with Provisioner.
+    4. Creation time and Destory Time Provisioner.
+    5. Failure Behavior for Provisioner.
+
 - [05-modules](./05-modules/README.md)
+
+    1. What is modules and Terraform Registry?
+    2. How to configure Module Source .
+    3. How to create simple module and use it.
+    
 - [06-terraform-state](./06-terraform-state/README.md)
+
+    1. How to configure S3 as remote state.
+    
+
 - [07-terraform-state-import](./07-terraform-state-import/README.md)
+
+    1. How to import state for manually created instance.
+    
 - [08-terraform-multi-region-provider](./08-terraform-multi-region-provider/README.md)
+
+    1. How configure and use terraform provider for multiple region using alias 
+    2. How configure and use terraform provider for multiple account using alias
+
 - [09-terraform-cloud-demo](./09-terraform-cloud-demo/README.md)
+
+    1. Simple file for demo the flow of Terraform Cloud.
+
 - [010-github-demo](./010-github-demo/README.md)
+
+    1. Demo to create git repo with terraform
+
 - [011-aws-create-s3](./011-aws-create-s3/README.md)
+
+    1. Demo to create s3 bucket with terraform.
+
 - [012-aws-ec2](./012-aws-ec2/README.md)
+
+    1. Demo to create ec2 instance with terraform and associate them with security group.
+    2. Demo to create security group.
+    
+
+
 - [013-aws-ec2-state-s3](./013-aws-ec2-state-s3/README.md)
+
+    1. Demo to create ec2 instance with terraform and associate them with security group.
+    2. Demo to create security group.
+    3. Demo to configure S3 as Remote state.
+
 - [014-aws-ec2-workspace](./014-aws-ec2-workspace/README.md)
+
+    1. What is a Workspace?
+    2. Demo to create and delete workspace like DEV/UAT & PROD
+    
 - [015-aws-ec2-maria-db](./015-aws-ec2-maria-db/README.md)
+
+    1. Demo to create EC2 instance and Mariab DB
+
 - [016-aws-install-jenkins](./016-aws-install-jenkins/README.md)
+
+    1. Demo to create EC2 instance with Jenkins installed
+
 - [017-aws-online-portal](./017-aws-online-portal/README.md)
+
+    1. Demo to create infrasture of a dummy online-portal where we have VPC, Internet Gateway , route tables, 
+    autoscaling groups, security groups , user_data, public and private subnet... 
+
 - [018-aws-modules](./018-aws-modules/README.md)
 
+    1. Demo to create infrasture of a dummy online-portal using module where we have VPC, Internet Gateway , route tables, autoscaling groups, security groups , user_data, public and private subnet... 
