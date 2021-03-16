@@ -14,10 +14,6 @@ variable "INSTANCE_TYPE" {
   default="t2.micro"
 }
 
-
-
-
-
 variable "ports" {
   type= list(number)
   default =[22,443,80,8080]

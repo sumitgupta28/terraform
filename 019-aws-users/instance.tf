@@ -14,3 +14,30 @@ resource "aws_iam_user" "quiz_experts_user" {
 #  ami           = "ami-0915bcb5fa77e4892" ## us-east-1
 #  instance_type = "t2.micro"
 #}
+
+
+variable "users" {
+  type    = list(string)
+  default = ["Peter", "Lois", "Brian", "Meg"]
+}
+ 
+output "lucky_user" {
+  value = element(var.users, 4)
+}
+
+variable "user_details" {
+  type = object({ name = string, age = number })
+}
+ 
+output "user_details_output" {
+  value = var.user_details
+}
+
+variable "input_number" {
+  type    = number
+  default = 1
+}
+ 
+output "magic_number" {
+  value = var.input_number
+}
