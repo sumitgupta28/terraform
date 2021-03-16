@@ -49,13 +49,13 @@ Then run the plan command to see what resources its going to create
 
 
 ```sh
-$terrafrom plan
+$terraform plan
 ```
 
 Run the Apply command to create resources 
 
 ```sh
-$terrafrom apply -auto-approve
+$terraform apply -auto-approve
 ```
 
 Once Complete 
@@ -129,3 +129,10 @@ You can also use its triggers argument and any meta-arguments to control exactly
 
 
 ![Terraform-Provisioner-types](../images/Terraform-Provisioner-types.JPG)
+
+
+### Creation-Time Provisioners
+
+- By default, provisioners run when the resource they are defined within is created. 
+- Creation-time provisioners are only run during creation, not during updating or any other lifecycle. 
+- They are meant as a means to perform bootstrapping of a system. Hence no matter how many times you run creation-time (default) provisioners after creating a resourse it will not run.

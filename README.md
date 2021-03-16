@@ -185,3 +185,7 @@ If you see below error it means you need to create a new set of key pair and AWS
 - [018-aws-modules](./018-aws-modules/README.md)
 
     1. Demo to create infrasture of a dummy online-portal using module where we have VPC, Internet Gateway , route tables, autoscaling groups, security groups , user_data, public and private subnet... 
+
+- [019-aws-users](./019-aws-users/README.md)
+
+    1. Demo to create AWS users

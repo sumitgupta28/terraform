@@ -120,6 +120,33 @@ The count meta-argument accepts a whole number, and creates that many instances 
 ![count-meta-argument.JPG](../images/count-meta-argument.JPG)
 
 
+### Structural Types
+
+A structural type allows multiple values of several distinct types to be grouped together as a single value. Structural types require a schema as an argument, to specify which types are allowed for which elements.
+
+The two kinds of structural type in the Terraform language are:
+
+
+
+#### object(...): A collection of named attributes that each have their own type.
+
+The schema for object types is { <KEY> = <TYPE>, <KEY> = <TYPE>, ... } — a pair of curly braces containing a comma-separated series of <KEY> = <TYPE> pairs. Values that match the object type must contain all of the specified keys, and the value for each key must match its specified type. (Values with additional keys can still match an object type, but the extra attributes are discarded during type conversion.)   
+
+     For Example: An object type of object({ name=string, age=number }) would match a value like the following:
+
+```json
+    {
+    name = "John"
+    age  = 52
+    }
+```
+
+#### tuple(...): A sequence of elements identified by consecutive whole numbers starting with zero, where each element has its own type.
+
+The schema for tuple types is [<TYPE>, <TYPE>, ...] — a pair of square brackets containing a comma-separated series of types. Values that match the tuple type must have exactly the same number of elements (no more and no fewer), and the value in each position must match the specified type for that position.
+
+For Example: A tuple type of tuple([string, number, bool]) would match a value like the following: ["a", 15, true]
+
 ### Conditional Operators
 
 Run below plan commands and see the resouce discription of **aws_instance.front-end-dev** and **aws_instance.front-end-prod**. and you can see that based on the provided value of ENV it will create the EC2 instance count. 
@@ -208,3 +235,19 @@ let try to see the plan and see how the splat expression print the user names
 ```
 
 ![Splat-Expressions](../images/Splat-Expressions.JPG)
+
+
+
+### Sensitive Data in State
+
+Terraform state can contain sensitive data, depending on the resources in use and your definition of "sensitive." The state contains resource IDs and all resource attributes. For resources such as databases, this may contain initial passwords.
+
+When using local state, state is stored in plain-text JSON files.
+
+When using remote state, state is only ever held in memory when used by Terraform. It may be encrypted at rest, but this depends on the specific remote state backend.
+
+### Recommendations
+
+If you manage any sensitive data with Terraform (like database passwords, user passwords, or private keys), treat the state itself as sensitive data.
+
+Storing state remotely can provide better security. As of Terraform 0.9, Terraform does not persist state to the local disk when remote state is in use, and some backends can be configured to encrypt the state data at rest.

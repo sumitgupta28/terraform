@@ -13,6 +13,12 @@ This packages or module can be publish over [Terraform Registry](#Terraform-Regi
 
 ![Terraform-Module](../images/Terraform-Module-1.JPG)
 
+
+## Parent module to child module input
+
+![Terraform-Module-input-variables](../images/Terraform-Module-input-variables.JPG)
+
+
 # How to Run 
 
 Once you are in this directory. 
@@ -37,16 +43,18 @@ as we can see [create-ec2.tf](create-ec2.tf) having a modile name **aws_instance
 Then run the plan command to see what resources its going to create
 
 ```sh
-$terrafrom plan
+$terraform plan
 ```
 
 run the Apply command to create resources 
 
 ```sh
-$terrafrom apply -auto-approve
+$terraform apply -auto-approve
 ```
 
 ![Terraform-Module](../images/Terraform-Module.JPG)
+
+
 
 
 ## Module Source 

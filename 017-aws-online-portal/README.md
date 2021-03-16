@@ -6,12 +6,12 @@
 
 ## Then run the plan command to see what resources its going to create
 ```sh
-$terrafrom plan
+$terraform plan
 ```
 
 ## run the Apply command to create resources 
 ```sh
-$terrafrom apply -auto-approve
+$terraform apply -auto-approve
 ```
 
 

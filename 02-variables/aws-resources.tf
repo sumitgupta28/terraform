@@ -1,5 +1,20 @@
-## mention the provider our would like to use
+locals   {
+  firstName ="sumitgupta"
+}
 
+locals   {
+  name =local.firstName
+}
+
+output "firstName" {
+  value = local.firstName
+}
+
+output "name" {
+  value = local.name
+}
+
+## mention the provider
 terraform {
   required_providers {
     aws = {

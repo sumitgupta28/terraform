@@ -1,6 +1,14 @@
 
 ## Terraform Variables
 
+### Primitive Types
+
+A primitive type is a simple type that isn't made from any other type. All primitive types in Terraform are represented by a type keyword. The available primitive types are:
+
+   - string: a sequence of Unicode characters representing some text, such as "hello".
+   - number: a numeric value. The number type can represent both whole numbers like 15 and fractional values such as 6.283185.
+   - bool: either true or false. bool values can be used in conditional logic.
+
 ### how to Define Variables [vars.tf]
 
 ```sh
@@ -64,10 +72,22 @@ Terraform loads variables in the following order, with later sources taking prec
 5. Any -var and -var-file options on the command line, in the order they are provided. 
 
 
+### name of a variable
+
+The label after the variable keyword is a name for the variable, which must be unique among all variables in the same module. This name is used to assign a value to the variable from outside and to reference the variable's value from within the module.
+
+- The variable declaration can optionally include a type argument to specify what value types are accepted for the variable, as described in the following section.
+
+- The variable declaration can also include a default argument. If present, the variable is considered to be optional and the default value will be used if no value is set when calling the module or running Terraform. The default argument requires a literal value and cannot reference other objects in the configuration.
+
 ## Environment Variables
 
 ### Configuring Terraform logging
 Terraform depends on two environment variables being configured. These two variables are TF_LOG and TF_LOG_PATH, both need to be configured our no logging will occur. I will be calling my log file terraform.txt, however, it can be named whatever you like.
+
+You can set TF_LOG to one of the log levels TRACE, DEBUG, INFO, WARN or ERROR to change the verbosity of the logs. TRACE is the most verbose and it is the default if TF_LOG is set to something other than a log level name.
+
+Therefore  export TF_LOG="RANDOM" or export TF_LOG="TRACE"  both can set the most verbose log level.
 
 #### Setting in current session
 If you want to temporarily configure these for your sessions here is how you do that for both PowerShell and Bash. Once these are set the next time you run the terraform command there will be a terraform.txt file in the current working directory.

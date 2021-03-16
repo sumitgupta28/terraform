@@ -1,4 +1,5 @@
 module "onlineportal-autoscaling-group" {
+
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 3.0"
 

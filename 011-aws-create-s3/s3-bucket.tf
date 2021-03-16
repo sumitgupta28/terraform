@@ -6,4 +6,9 @@ resource "aws_s3_bucket" "sumitgupta28-s3-backend" {
     Name        = "sumitgupta28-s3-backend"
     Environment = "Dev"
   }
+
+  provisioner "local-exec" {
+    command = "echo ${aws_s3_bucket.sumitgupta28-s3-backend.arn} >> arn.txt"
+  }
+
 }
