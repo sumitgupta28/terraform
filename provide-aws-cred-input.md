@@ -1,4 +1,4 @@
-## How to Run the examples
+## Provide AWS_ACCESS_KEY & AWS_SECRET_KEY as input
 
 Provide **AWS_ACCESS_KEY** and **AWS_SECRET_KEY** as input to terraform
 

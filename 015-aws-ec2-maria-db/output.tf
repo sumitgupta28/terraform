@@ -21,3 +21,11 @@ output "application-server-arn" {
 output "rds" {
   value = aws_db_instance.mariadb.endpoint
 }
+
+output "rds-username" {
+  value = aws_db_instance.mariadb.username
+}
+output "rds-password" {
+  value = aws_db_instance.mariadb.password
+  sensitive = true
+}

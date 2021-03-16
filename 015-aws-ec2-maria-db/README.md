@@ -1,32 +1,18 @@
-## Generate Key Pair
+# How to Run 
 
-        $ ssh-keygen -f mykey
-        Generating public/private rsa key pair.
-        Enter passphrase (empty for no passphrase): 
-        Enter same passphrase again: 
-        Your identification has been saved in mykey.
-        Your public key has been saved in mykey.pub.
-        The key fingerprint is:
-        SHA256:7JlA8t+tBn1yb2KDFeF0VoDoNuvoU/hW7YwX1NGgmBI Sumit@sumitgupta
-        The key's randomart image is:
-        +---[RSA 2048]----+
-        |        E  . .o+o|
-        |         ..o+.o..|
-        |    . . ..oo.+ ..|
-        |     + . .+ o . .|
-        |      o S+ o +   |
-        |       +o+=.= o  |
-        |        =*.B.= . |
-        |        o *.= *  |
-        |       ..+.. =   |
-        +----[SHA256]-----+
+## [Generate a key pair with name "mykey"](../generate-key-pair.md)
 
+## [Set AWS Credentials](../provide-aws-cred-input.md) 
 
-        $ ls -lrt
-        total 2
-        -rw-r--r-- 1 Sumit 197609 1675 Feb 24 10:29 mykey
-        -rw-r--r-- 1 Sumit 197609  398 Feb 24 10:29 mykey.pub
+## Then run the plan command to see what resources its going to create
+```sh
+        $ terrafrom plan
+```
 
+## run the Apply command to create resources 
+```sh
+        $ terrafrom apply -auto-approve
+```
 
 ### install sql client
 
@@ -44,7 +30,8 @@ these commands are added with instance startup script as well. So no need to do 
         aws_eip-nat-public_ip = "XX.XX.XX.XX"
         aws_nat_gateway-nat-gw-public_ip = "XX.XX.XX.XX"
         rds = "mariadb.XX.us-east-1.rds.amazonaws.com:3306"
-
+        rds-password = (sensitive value)
+        rds-username = "root"
 ## Validate Apache
 
         curl http://application-server-public_ip
@@ -83,26 +70,3 @@ these commands are added with instance startup script as well. So no need to do 
         | performance_schema |
         +--------------------+
         5 rows in set (0.00 sec)
-
-
-# How to Run 
-
-Once you are in this directory. 
-
-> Create a new file **terraform.tfvars** with below content 
-```note
-AWS_ACCESS_KEY = "<<YOUR_AWS_ACCESS_KEY>>"
-AWS_SECRET_KEY = "<<YOUR_AWS_SECRET_KEY>>" 
-```
-
-Then run the plan command to see what resources its going to create
-
-```sh
-$terrafrom plan
-```
-
-run the Apply command to create resources 
-
-```sh
-$terrafrom apply -auto-approve
-```

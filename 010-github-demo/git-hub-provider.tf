@@ -10,17 +10,11 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket = "sumitgupta28-s3-backend"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
-  }
 
 }
 
 provider "github" {
   # Configuration options
   token = var.github_token
-
 }
 

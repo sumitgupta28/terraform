@@ -2,9 +2,7 @@ In this demo we will see how to use multiple aws provider seperated by the regio
 
 ![multi-region.JPG](../images/multi-region.JPG)
 
-
-
-this is how provider configuration looks like 
+This is how provider configuration looks like 
 
 ```sh
     provider "aws" {
