@@ -10,11 +10,10 @@ resource "aws_iam_user" "quiz_experts_user" {
   name  = var.user_names[count.index]
 }
 
-#resource "aws_instance" "test_instance-1" {
-#  ami           = "ami-0915bcb5fa77e4892" ## us-east-1
-#  instance_type = "t2.micro"
-#}
-
+resource "aws_instance" "test_instance-1" {
+  ami           = "ami-0915bcb5fa77e4892" ## us-east-1 ami id
+  instance_type = "t2.micro"
+}
 
 variable "users" {
   type    = list(string)

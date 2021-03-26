@@ -18,7 +18,7 @@ A primitive type is a simple type that isn't made from any other type. All primi
         }
 ```
 
-exmaple:
+Example:
 
 ```sh
         variable "image_id" {
@@ -145,13 +145,13 @@ There are many advantages of having state in remote storage.
 Modules in Terraform allow you to reuse predefined resource structures. Using modules will decrease the snowflake effect and provide a great way to reuse existing infrastructure code.
 
 
-Terraform module allows to package a application infrastrucutre resource set and parametrize them so the same resource set can be re-applied or re-used with different name/values/ami's/vpc. 
+Terraform module allows to package a application Infrastructure resource set and parametrize them so the same resource set can be re-applied or re-used with different name/values/ami's/vpc. 
 
-Infrastrucutre resource set can be a collection of VPC containing few private and public subnets , net & internate gateways , security groups , keys and finally few EC2 instance. 
+Infrastructure resource set can be a collection of VPC containing few private and public subnets , net & internet gateways , security groups , keys and finally few EC2 instance. 
 
-Now if this Infrastrucutre resource set needs to be re-created for multiple regions or multiple enviroments like (DEV/STAGE/PROD) 
+Now if this Infrastructure resource set needs to be re-created for multiple regions or multiple environments like (DEV/STAGE/PROD) 
 - You can very well do it with creating workspaces and creating multiple vars.tf files
-- terraform provide another nice and cleaner approch to bundle the all the base infra into package called modules and allow the variables to be passed.
+- terraform provide another nice and cleaner approach to bundle the all the base infra into package called modules and allow the variables to be passed.
 
 Modules have some variables as inputs, which are located in different places (eg. A different folder, or even a different repository). They define elements from a provider and can define multiple resources in themselves:
 
@@ -170,7 +170,7 @@ There are multiple ways to specify the provider version.
 | >=2.0,<=2.30              | version between 2.10 and 2.30       |
 
 
-**Exmaple Provider.tf**
+**Example Provider.tf**
 
 
 ```sh

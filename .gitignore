@@ -25,3 +25,6 @@
 */my-access-key
 */my-access-key.pub
 */crash.log
+
+## for GCP
+*/*.json

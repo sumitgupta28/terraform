@@ -1718,19 +1718,41 @@ The terraform console  command is useful for testing interpolations before using
 
 Try Terraform expressions at an interactive command prompt
 
-- force-unlock  Release a stuck lock on the current workspace
-- import        Associate existing infrastructure with a Terraform resource
-- refresh       Update the state to match remote systems
 
+### terraform force unlock
 
-### [terraform force-unlock](https://www.terraform.io/docs/cli/commands/force-unlock.html)
+[link](https://www.terraform.io/docs/cli/commands/force-unlock.html)
 
 Manually unlock the state for the defined configuration.
 
 This will not modify your infrastructure. This command removes the lock on the state for the current configuration. The behavior of this lock is dependent on the backend being used. Local state files cannot be unlocked by another process.
 
+
+Just to demo , if you try to do apply and if state is locked due to some other process. you will see below error message.
+
 ```sh
-    $terraform force-unlock LOCK_ID
+    
+    $ terraform apply
+
+    Error: Error locking state: Error acquiring the state lock: Failed to read state file: The state file could not be read: read terread terraform.tfstate: The process cannot access the file because another process has locked a portion of the file.       
+
+    Terraform acquires a state lock to protect the state from being written by multiple users at the same time. Please resolve the issue above and try again. For most commands, you can disable locking with the "-lock=false" flag, but this is not recommended.
+
 ```
 
+Since i am doing this with local state. i will have **.terraform.tfstate.lock.info** and here the **ID** field will be needed for the unlocking. in case of s3 Backend with Dynamodb, this info will be stored in the Dynamodb. 
 
+```sh
+    $ cat .terraform.tfstate.lock.info 
+    {"ID":"3edd7d9f-1795-6f16-1915-2b9c04bf42bc","Operation":"OperationTypeApply","Info":"","Who":"SUMITGUPTA\\Sumit@sumitgupta","Version":"0.14.6","Created":"2021-03-19T04:34:45.9266171Z","Path":"terraform.tfstate"}
+```
+
+Now if we try to unlock it , due to local it will get error "Local state cannot be unlocked by another process" , but if you have s3 Backend with Dynamodb , this will perform the unlock. 
+
+```sh
+    $ terraform force-unlock 3edd7d9f-1795-6f16-1915-2b9c04bf42bc
+    Local state cannot be unlocked by another process
+```
+
+- import        Associate existing infrastructure with a Terraform resource
+- refresh       Update the state to match remote systems
