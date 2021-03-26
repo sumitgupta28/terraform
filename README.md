@@ -87,7 +87,7 @@ If you see below error it means you need to create a new set of key pair and AWS
 
 -  [Terraform AWS Demo](./aws-terraform-example.md)
 
-## Examples 
+## Examples [AWS]
 
 - [01-provider-version-test](./01-provider-version-test/README.md)
 
@@ -185,3 +185,12 @@ If you see below error it means you need to create a new set of key pair and AWS
 - [018-aws-modules](./018-aws-modules/README.md)
 
     1. Demo to create infrasture of a dummy online-portal using module where we have VPC, Internet Gateway , route tables, autoscaling groups, security groups , user_data, public and private subnet... 
+
+
+
+## Examples [GCP]
+
+- [01-gcp-setup](./01-gcp-setup/README.md)
+
+    1. How the setup GCP provider's and required configuration
+    2. Create a VM instance , VPC and Storage Bucket 
