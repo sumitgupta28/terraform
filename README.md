@@ -60,8 +60,6 @@ There are a few key reasons developers choose to use Terraform over other Infras
 
 
 
-
-
 ## Troubleshooting tips
 
 ### [1] Troubleshooting tips  
@@ -194,3 +192,8 @@ If you see below error it means you need to create a new set of key pair and AWS
 
     1. How the setup GCP provider's and required configuration
     2. Create a VM instance , VPC and Storage Bucket 
+
+- [02-gcp-cloud-storage-bucket](./02-gcp-cloud-storage-bucket/README.md)
+
+    1. How the setup GCP provider's and required configuration
+    2. Create a bucket with lifecyle policy  

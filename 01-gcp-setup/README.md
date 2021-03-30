@@ -37,10 +37,10 @@ Here is the configuration for setting up CGP Provider
 and Variable values are 
 
 ```sh
-    GCP_PROJECT_ID     = "weighty-wonder-308406"
+    GCP_PROJECT_ID     = "<<PROJECT_ID>>"
     GCP_REGION         = "us-central1"
     GCP_ZONE           = "us-central1-a"
-    GCP_CRED_FILE_NAME = "Terraform-project-b21d170ea375.json"
+    GCP_CRED_FILE_NAME = "<<Credential_json_file>>.json"
 ```
 
 ![GCP-Terraform-setup.JPG](../images/GCP-Terraform-setup.JPG)
@@ -193,10 +193,10 @@ VPC network and VM Instance and a storage bucket.
         google_compute_network.vpc_network: Still creating... [20s elapsed]
         google_compute_network.vpc_network: Still creating... [30s elapsed]
         google_compute_network.vpc_network: Still creating... [40s elapsed]
-        google_compute_network.vpc_network: Creation complete after 47s [id=projects/weighty-wonder-308406/global/networks/terraform-network]
+        google_compute_network.vpc_network: Creation complete after 47s [id=projects/<<project_id>>/global/networks/terraform-network]
         google_compute_instance.app-instance: Creating...
         google_compute_instance.app-instance: Still creating... [10s elapsed]
-        google_compute_instance.app-instance: Creation complete after 16s [id=projects/weighty-wonder-308406/zones/us-central1-a/instances/test-app-server]
+        google_compute_instance.app-instance: Creation complete after 16s [id=projects/<<project_id>>/zones/us-central1-a/instances/test-app-server]
 
         Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
