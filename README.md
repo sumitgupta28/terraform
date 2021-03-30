@@ -195,5 +195,13 @@ If you see below error it means you need to create a new set of key pair and AWS
 
 - [02-gcp-cloud-storage-bucket](./02-gcp-cloud-storage-bucket/README.md)
 
-    1. How the setup GCP provider's and required configuration
-    2. Create a bucket with lifecyle policy  
+    1. Create a bucket with lifecyle policy  
+
+- [03-gcp-bucket-as-backend](./03-gcp-bucket-as-backend/README.md)
+
+    1. Setup GCP Bucket as Backend 
+
+- [04-gcp-pub-sub-topic](./04-gcp-pub-sub-topic/README.md)
+
+    1. Create Topics
+    2. Create Subscriptions  
