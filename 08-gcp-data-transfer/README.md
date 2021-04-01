@@ -312,3 +312,22 @@ Storage Transfer Service does the following by default:
     TOTAL: 2 objects, 110031 bytes (107.45 KiB)
 
 ```
+
+
+### Cleanup
+
+```sh
+    $ terraform destroy -auto-approve
+    google_storage_bucket_iam_member.s3-backup-bucket: Destroying... [id=b/sumitgupta28-awss3-backup-bucket/roles/storage.admin/serviceaccount:project-234356343826@storage-transfer-service.iam.gserviceaccount.com]
+    google_storage_transfer_job.s3-bucket-transfer-job: Destroying... [id=weighty-wonder-308406/5495505653004594035]
+    google_storage_transfer_job.s3-bucket-transfer-job: Destruction complete after 1s
+    aws_s3_bucket_object.s3_bucket_upload["cdid5.png"]: Destroying... [id=cdid5.png]
+    aws_s3_bucket_object.s3_bucket_upload["cicd6.jpg"]: Destroying... [id=cicd6.jpg]
+    aws_s3_bucket_object.s3_bucket_upload["cdid5.png"]: Destruction complete after 0s
+    aws_s3_bucket_object.s3_bucket_upload["cicd6.jpg"]: Destruction complete after 0s
+    aws_s3_bucket.sumitgupta28-s3-bucket: Destroying... [id=sumitgupta28-s3-bucket]
+    aws_s3_bucket.sumitgupta28-s3-bucket: Destruction complete after 0s
+    google_storage_bucket_iam_member.s3-backup-bucket: Destruction complete after 7s
+    google_storage_bucket.s3-backup-bucket: Destroying... [id=sumitgupta28-awss3-backup-bucket]
+    google_storage_bucket.s3-backup-bucket: Destruction complete after 2s
+```

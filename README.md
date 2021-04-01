@@ -205,3 +205,22 @@ If you see below error it means you need to create a new set of key pair and AWS
 
     1. Create Topics
     2. Create Subscriptions  
+
+- 05-gcp-gke-cluster
+
+- [06-gcp-dataproc](./06-gcp-dataproc/README.md)
+    
+    1. Create a Dataproc cluster
+    2. Create a Spark Job for Dataproc cluster
+
+- [07-gcp-dataflow](./07-gcp-dataflow/README.md)
+
+- [08-gcp-data-transfer](./08-gcp-data-transfer/README.md)
+    
+    1. Create a Data transfer job which transfer files from AWS-S3 to GCP Bucket.
+
+- [09-gcp-vpc-network](./09-gcp-vpc-network/README.md)
+
+    1. Create a VPC Network
+    2. Create a Subnet Network
+    3. Create a firewall rule
