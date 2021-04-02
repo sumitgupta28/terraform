@@ -6,6 +6,12 @@ Cloud Dataproc is a managed Spark and Hadoop service that lets you take advantag
 
 It disaggregates storage & compute. Say an external application is sending logs that you want to analyze, you store them in a data source. From Cloud Storage(GCS) the data is used by Dataproc for processing which then stores it back into GCS, BigQuery or Bigtable.
 
+**Features:**
+
+- With your existing MapReduce, you can operate on an immense amount of data each day without any overhead worries.
+- With the in-built monitoring system, you can transfer your cluster data to your applications. You can get quick-reports from the system and also have the feature of storing data in Google’s BigQuery.
+- Quick launch and delete smaller clusters stored in blob storage, as and when required using Spark (Spark SQL, PySpark, Spark shell).
+- Spark Machine Learning Libraries and Data Science to customize and run classification algorithms.
 
 ![GCP-data-proc-concept.JPG](../images/GCP-data-proc-concept.JPG)
 

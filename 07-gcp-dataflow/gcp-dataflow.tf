@@ -1,32 +1,76 @@
-resource "google_pubsub_topic" "topic" {
-  name = "dataflow-job1"
+### Source Topic
+resource "google_pubsub_topic" "topic-dataflow-job-source" {
+  name = "dataflow-job-source-topic"
+}
+### Source Subscription
+resource "google_pubsub_subscription" "dataflow-job-source-topic-subscription" {
+  name       = "dataflow-job-source-topic-subscription"
+  topic      = google_pubsub_topic.topic-dataflow-job-source.name
+  ack_deadline_seconds = 500
+  depends_on = [google_pubsub_topic.topic-dataflow-job-source]
 }
 
-resource "google_storage_bucket" "bucket1" {
-  name          = "tf-test-bucket1"
-  force_destroy = true
+### Destination Topic
+resource "google_pubsub_topic" "topic-dataflow-job-destination" {
+  name = "dataflow-job-destination-topic"
 }
 
-resource "google_storage_bucket" "templates-bucket" {
-  name          = "tf-templates-bucket-bucket2"
-  force_destroy = true
+### Destination Subscription
+resource "google_pubsub_subscription" "dataflow-job-destination-topic-subscription" {
+  name       = "dataflow-job-destination-topic-subscription"
+  topic      = google_pubsub_topic.topic-dataflow-job-destination.name
+  ack_deadline_seconds = 500
+  depends_on = [google_pubsub_topic.topic-dataflow-job-destination]
 }
 
-resource "google_dataflow_job" "pubsub_stream" {
-  name                    = "tf-test-dataflow-job1"
-  template_gcs_path       = "gs://sumitgupat28-dataflow-bucket/templates/Stream_GCS_Text_to_Cloud_PubSub"
-  temp_gcs_location       = "gs://sumitgupat28-dataflow-bucket/tmp_dir"
-  enable_streaming_engine = true
+### Temp Bucket
+resource "google_storage_bucket" "temp-working-bucket" {
+  name                        = "sumitgupta28-temp-working-bucket"
+  location                    = "US"
+  force_destroy               = true
+  uniform_bucket_level_access = true
+  storage_class               = "STANDARD"
+}
+### Temp Bucket with temp folder
+resource "google_storage_bucket_object" "temp-working-bucket-folder" {
+  name    = "temp/"
+  content = "Not really a directory, but it's empty."
+  bucket  = google_storage_bucket.temp-working-bucket.name
+}
+
+output "google_storage_bucket_object-name" {
+  value = google_storage_bucket_object.temp-working-bucket-folder.self_link
+}
+
+## dataflow job
+resource "google_dataflow_job" "pubsub-pubsub-stream" {
+  name              = "pubsub-pubsub-stream-1"
+  template_gcs_path = "gs://dataflow-templates-us-central1/latest/Cloud_PubSub_to_Cloud_PubSub"
+  temp_gcs_location = var.TEMP_BUCKET_NAME
+  region            = var.GCP_REGION
   parameters = {
-    inputFilePattern = "${google_storage_bucket.bucket1.url}/*.json"
-    outputTopic      = google_pubsub_topic.topic.id
+    "inputSubscription"  = google_pubsub_subscription.dataflow-job-source-topic-subscription.path
+    "outputTopic" = google_pubsub_topic.topic-dataflow-job-destination.id
   }
-  transform_name_mapping = {
-    name = "test_job"
-    env  = "test"
+  depends_on = [
+    google_pubsub_topic.topic-dataflow-job-source,
+    google_pubsub_subscription.dataflow-job-source-topic-subscription,
+    google_pubsub_topic.topic-dataflow-job-destination,
+  ]
+  labels = {
+    "name" = "pubsub-pubsub-stream"
   }
-
+  
   machine_type = "n1-standard-2"
-  max_workers = 2
-  on_delete = "cancel"
+  max_workers  = 1
+  on_delete    = "cancel"
+}
+
+
+output "dataflow-job-source-topic-subscription-path" {
+  value = google_pubsub_subscription.dataflow-job-source-topic-subscription.path
+}
+
+output "google_pubsub_topic-topic-dataflow-job-destination-id" {
+  value = google_pubsub_topic.topic-dataflow-job-destination.id
 }
