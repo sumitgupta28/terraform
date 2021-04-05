@@ -215,6 +215,8 @@ If you see below error it means you need to create a new set of key pair and AWS
 
 - [07-gcp-dataflow](./07-gcp-dataflow/README.md)
 
+    1. Create a Sample data flow job to transfer Messages from Source to Destination Pub Sub Topic
+
 - [08-gcp-data-transfer](./08-gcp-data-transfer/README.md)
     
     1. Create a Data transfer job which transfer files from AWS-S3 to GCP Bucket.
