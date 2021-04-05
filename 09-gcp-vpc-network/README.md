@@ -41,7 +41,7 @@ and Variable values are
 With this now we are ready to create GCP resources with Terrafrom. 
 
 
-# Create first VPC
+# Create VPC
 
 ```sh
 
@@ -206,8 +206,8 @@ With this now we are ready to create GCP resources with Terrafrom.
 
 ```sh
     $ gcloud compute networks  subnets list --filter="network:( terraform-network )"
-    NAME                    REGION       NETWORK            RANGE
-    us-central1-subnetwork  us-central1  terraform-network  10.0.0.0/12
+    NAME                        REGION       NETWORK            RANGE
+    us-central1-private-subnet  us-central1  terraform-network  10.0.1.0/24
 ```
 
 
@@ -217,11 +217,13 @@ With this now we are ready to create GCP resources with Terrafrom.
 
     $ gcloud compute firewall-rules list
     NAME                    NETWORK            DIRECTION  PRIORITY  ALLOW                         DENY  DISABLED
+    allow-icmp              terraform-network  INGRESS    65534     tcp:22                              False
+    allow-icmp-custom       terraform-network  INGRESS    65534     icmp                                False
+    default-allow-http      default            INGRESS    1000      tcp:80                              False
     default-allow-icmp      default            INGRESS    65534     icmp                                False
     default-allow-internal  default            INGRESS    65534     tcp:0-65535,udp:0-65535,icmp        False
     default-allow-rdp       default            INGRESS    65534     tcp:3389                            False
     default-allow-ssh       default            INGRESS    65534     tcp:22                              False
-    test-firewall           terraform-network  INGRESS    1000      icmp,tcp:80,tcp:8080                False
 
 ```
 - routes created..
@@ -230,84 +232,54 @@ With this now we are ready to create GCP resources with Terrafrom.
 
     $ gcloud compute routes list --filter "network:( terraform-network )"
     NAME                            NETWORK            DEST_RANGE   NEXT_HOP                  PRIORITY
-    default-route-17176df2bd80330c  terraform-network  0.0.0.0/0    default-internet-gateway  1000
-    default-route-e6750b6dde623367  terraform-network  10.0.0.0/12  terraform-network         0
+    default-route-86087a5ad3dde069  terraform-network  10.0.1.0/24  terraform-network         0
+    default-route-dde1c26d2f0dc311  terraform-network  0.0.0.0/0    default-internet-gateway  1000
 
 ```
 
 - An instance is created in the newly created vpc.
 
 ```sh 
-    $ gcloud compute instances describe test-app-server --zone=us-central1-a
-    canIpForward: false
-    cpuPlatform: Intel Haswell
-    creationTimestamp: '2021-04-01T22:36:04.313-07:00'
-    deletionProtection: false
-    disks:
-    - autoDelete: true
-    boot: true
-    deviceName: persistent-disk-0
-    diskSizeGb: '10'
-    guestOsFeatures:
-    - type: VIRTIO_SCSI_MULTIQUEUE
-    index: 0
-    interface: SCSI
-    kind: compute#attachedDisk
-    licenses:
-    - https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch
-    mode: READ_WRITE
-    source: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/zones/us-central1-a/disks/test-app-server
-    type: PERSISTENT
-    fingerprint: 07nk_6Xd5Fg=
-    id: '5346850913645171628'
-    kind: compute#instance
-    labelFingerprint: 42WmSpB8rSM=
-    lastStartTimestamp: '2021-04-01T22:36:20.844-07:00'
-    machineType: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/zones/us-central1-a/machineTypes/f1-micro
-    metadata:
-    fingerprint: aPGh8_-hArU=
-    kind: compute#metadata
-    name: test-app-server
-    networkInterfaces:
-    - fingerprint: Uy5Igpa8Po4=
-    kind: compute#networkInterface
-    name: nic0
-    network: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/global/networks/terraform-network
-    networkIP: 10.0.0.2
-    subnetwork: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/regions/us-central1/subnetworks/us-central1-subnetwork
-    scheduling:
-    automaticRestart: true
-    onHostMaintenance: MIGRATE
-    preemptible: false
-    selfLink: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/zones/us-central1-a/instances/test-app-server
-    startRestricted: false
-    status: RUNNING
-    tags:
-    fingerprint: 42WmSpB8rSM=
-    zone: https://www.googleapis.com/compute/v1/projects/weighty-wonder-308406/zones/us-central1-a
+    gcloud compute instances list
+    NAME                       ZONE           MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP  STATUS
+    terraform-maintained-4h9f  us-central1-a  f1-micro                   10.0.1.2                  RUNNING
 ```
 
-![aws_gcp_azure_vcp.jpeg](./images/aws_gcp_azure_vcp.jpeg)
+- ssh into instance and validate the ngnix is up and running 
 
-### Firewall Rules
+```sh
+    $ gcloud compute ssh terraform-maintained-4h9f --zone=us-central1-a
+    External IP address was not found; defaulting to using IAP tunneling.
+    Linux terraform-maintained-4h9f 4.19.0-14-cloud-amd64 #1 SMP Debian 4.19.171-2 (2021-01-30) x86_64
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Mon Apr  5 07:29:08 2021 from 35.235.241.17
+    sumitgupta28@terraform-maintained-4h9f:~$ curl localhost
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Welcome to nginx!</title>
+    <style>
+        body {
+            width: 35em;
+            margin: 0 auto;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>Welcome to nginx!</h1>
+    <p>If you see this page, the nginx web server is successfully installed and
+    working. Further configuration is required.</p>
+    <p>For online documentation and support please refer to
+    <a href="http://nginx.org/">nginx.org</a>.<br/>
+    Commercial support is available at
+    <a href="http://nginx.com/">nginx.com</a>.</p>
+    <p><em>Thank you for using nginx.</em></p>
+    </body>
+    </html>    
 
-[Pre-populated rules in the default network](https://cloud.google.com/vpc/docs/firewalls#more_rules_default_vpc)
-
-The default network is pre-populated with firewall rules that allow incoming connections to instances. These rules can be deleted or modified as necessary:
-
-**default-allow-internal** - Allows ingress connections for all protocols and ports among instances in the network. This rule has the second-to-lowest priority of 65534, and it effectively permits incoming connections to VM instances from others in the same network. This rule allows traffic in 10.128.0.0/9 (from 10.128.0.1 to 10.255.255.254), a range that covers all subnets in the network.
-**default-allow-ssh** -  Allows ingress connections on TCP destination port 22 from any source to any instance in the network. This rule has a priority of 65534.
-**default-allow-rdp** - Allows ingress connections on TCP destination port 3389 from any source to any instance in the network. This rule has a priority of 65534, and it enables connections to instances running the Microsoft Remote Desktop Protocol (RDP).
-**default-allow-icmp** - Allows ingress ICMP traffic from any source to any instance in the network. This rule has a priority of 65534, and it enables tools such as ping.
-
-
-### [Shared VPC](https://cloud.google.com/vpc/docs/shared-vpc#concepts_and_terminology)
-
-Shared VPC connects projects within the same organization. Participating host and service projects cannot belong to different organizations. Linked projects can be in the same or different folders.
-
-![Shared VPC](https://cloud.google.com/vpc/images/shared-vpc/shared-vpc-example-concepts.svg)
-
-### [VPC Network Peering] (https://cloud.google.com/vpc/docs/vpc-peering)
-Google Cloud VPC Network Peering allows internal IP address connectivity across two Virtual Private Cloud (VPC) networks regardless of whether they belong to the same project or the same organization.
-
-VPC Network Peering enables you to connect VPC networks so that workloads in different VPC networks can communicate internally. Traffic stays within Google's network and doesn't traverse the public internet.
+```

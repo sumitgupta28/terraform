@@ -224,5 +224,19 @@ If you see below error it means you need to create a new set of key pair and AWS
 - [09-gcp-vpc-network](./09-gcp-vpc-network/README.md)
 
     1. Create a VPC Network
-    2. Create a Subnet Network
+    2. Create a public and private Subnet Network
     3. Create a firewall rule
+    4. Create a VM instance for private and public subnet
+    5. Create a router and Nat gateway for private instance
+
+- [10-gcp-instance-group](./10-gcp-instance-group/README.md)
+
+    this is an extention of previous exmample. 
+
+    1. Create a VPC Network
+    2. Create a private Subnet Network
+    3. Create a firewall rule
+    4. Create a router and Nat gateway for private instance
+    5. Create an instance template and instance group.
+    6. instance template will have startup metadata script as well for installing nginx. 
+    
