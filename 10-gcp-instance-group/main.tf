@@ -74,10 +74,10 @@ resource "google_compute_firewall" "allow-ssh" {
 
 ## Create Router 
 resource "google_compute_router" "my-router" {
-  name    = "my-router"
+  name        = "my-router"
   description = "my-router"
-  network = google_compute_network.terraform-network-vpc.name
-  region                             = var.GCP_REGION
+  network     = google_compute_network.terraform-network-vpc.name
+  region      = var.GCP_REGION
 }
 
 ## Create NAT Gateway
@@ -136,4 +136,39 @@ resource "google_compute_instance_group_manager" "terraform-maintained-ig" {
     instance_template = google_compute_instance_template.terraform-maintained-it.id
   }
   target_size = 1
+}
+
+
+// Forwarding rule for External Network Load Balancing using Backend Services
+
+resource "google_compute_forwarding_rule" "default" {
+  
+  name            = "website-forwarding-rule"
+
+  region          = var.GCP_REGION
+  port_range      = 80
+
+  load_balancing_scheme = "INTERNAL"
+
+  backend_service = google_compute_region_backend_service.backend.id
+  network         = google_compute_network.terraform-network-vpc.id
+  subnetwork      = google_compute_subnetwork.us-central1-private-subnet.name
+
+}
+resource "google_compute_region_backend_service" "backend" {
+  name                  = "website-backend"
+  region                = var.GCP_REGION
+  load_balancing_scheme = "INTERNAL_MANAGED"
+  health_checks         = [google_compute_region_health_check.health-check.id]
+}
+
+resource "google_compute_region_health_check" "health-check" {
+  name               = "check-website-backend"
+  check_interval_sec = 1
+  timeout_sec        = 1
+  region             = var.GCP_REGION
+
+  tcp_health_check {
+    port = "80"
+  }
 }
