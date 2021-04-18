@@ -194,3 +194,15 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
 
     Destroy complete! Resources: 2 destroyed.
 ```
+
+### Valdiation post Cleanup 
+
+```sh
+
+    $ gcloud run revisions  list  --platform managed --region=us-central1
+    Listed 0 items.
+
+    $ gcloud run services list  --platform managed
+    Listed 0 items.
+
+```

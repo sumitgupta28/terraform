@@ -232,7 +232,7 @@ If you see below error it means you need to create a new set of key pair and AWS
 - [10-gcp-instance-group](./10-gcp-instance-group/README.md)
 - [011-gcp-instance-group-java-app]
 
-    this is an extention of previous exmample. 
+    This is an extention of previous exmample. 
 
     1. Create a VPC Network
     2. Create a private Subnet Network
@@ -245,4 +245,10 @@ If you see below error it means you need to create a new set of key pair and AWS
 
 - [013-gcp-cloud-function] (./013-gcp-cloud-function/README.md)
 
+    1. Create a Cloud Function which respond to the event raised by message arrival on a pub/sub topic 
+    2. Event listen take the message posted on pub/sub topic
+
 - [014-gcp-cloud-run] (./014-gcp-cloud-run/README.md)
+
+    1. How to create a docker image and push it to google docker registry
+    2. Create a Cloud run service with no authentication with managed service. 

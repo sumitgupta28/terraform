@@ -2,6 +2,7 @@ resource "google_cloud_run_service" "docker-sample-app" {
   name     = "docker-sample-app-service"
   location = var.GCP_REGION
   project  = var.GCP_PROJECT_ID
+  
 
   template {
     spec {
@@ -12,16 +13,20 @@ resource "google_cloud_run_service" "docker-sample-app" {
     metadata {
       name = "docker-sample-app-service-green"
     }
+
+
   }
   metadata {
     annotations = {
       generated-by = "terraform"
     }
+
   }
   traffic {
     percent         = 100
     latest_revision = true
   }
+
 }
 
 ### this for Cloud Run Service with Noauth
