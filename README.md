@@ -230,6 +230,7 @@ If you see below error it means you need to create a new set of key pair and AWS
     5. Create a router and Nat gateway for private instance
 
 - [10-gcp-instance-group](./10-gcp-instance-group/README.md)
+- [011-gcp-instance-group-java-app]
 
     this is an extention of previous exmample. 
 
@@ -239,4 +240,9 @@ If you see below error it means you need to create a new set of key pair and AWS
     4. Create a router and Nat gateway for private instance
     5. Create an instance template and instance group.
     6. instance template will have startup metadata script as well for installing nginx. 
-    
+
+- [012-gcp-app-engine] (./012-gcp-app-engine/README.md)
+
+- [013-gcp-cloud-function] (./013-gcp-cloud-function/README.md)
+
+- [014-gcp-cloud-run] (./014-gcp-cloud-run/README.md)
