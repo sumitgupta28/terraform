@@ -184,6 +184,17 @@ If you see below error it means you need to create a new set of key pair and AWS
 
     1. Demo to create infrasture of a dummy online-portal using module where we have VPC, Internet Gateway , route tables, autoscaling groups, security groups , user_data, public and private subnet... 
 
+- [021-aws-bastian-host](./021-aws-bastian-host/README.md)
+
+    1. Create a VPC
+    2. Create private and public subnet
+    3. Create EC2 instance in both the subnet. 
+    4. Treat EC2 instance in Public subnet as Bastin Host to connect with private subnet
+    5. Create Elastic IP Address.
+    6. Create NetGatway in public subnet. 
+    7. ssh into to Bastian Host. 
+    8. ssh into to private subnet Ec2 Instance from Bastian Host. 
+    9. Ping google.com to ensure private subnet Ec2 Instance can connect to Internet
 
 
 ## Examples [GCP]

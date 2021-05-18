@@ -13,7 +13,7 @@ In this exmaple we are going to create below infrastructure.
 5. Create Elastic IP Address.
 6. Create NetGatway in public subnet. 
 7. ssh into to Bastian Host. 
-7. ssh into to private subnet Ec2 Instance from Bastian Host. 
+8. ssh into to private subnet Ec2 Instance from Bastian Host. 
 9. Ping google.com to ensure private subnet Ec2 Instance can connect to Internet
 
 ![bastian host](../images/Bastian-host.JPG)
