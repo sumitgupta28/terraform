@@ -92,9 +92,9 @@ This will crete a master and worker config with default values having 1 master a
     google_dataproc_cluster.mycluster: Still creating... [1m40s elapsed]
     google_dataproc_cluster.mycluster: Still creating... [1m50s elapsed]
     google_dataproc_cluster.mycluster: Still creating... [2m0s elapsed]
-    google_dataproc_cluster.mycluster: Creation complete after 2m9s [id=projects/weighty-wonder-308406/regions/us-central1/clusters/terraform-dproc-cluster]  
+    google_dataproc_cluster.mycluster: Creation complete after 2m9s [id=projects/gcp-learning-project-312006/regions/us-central1/clusters/terraform-dproc-cluster]  
     google_dataproc_job.spark: Creating...
-    google_dataproc_job.spark: Creation complete after 1s [id=projects/weighty-wonder-308406/regions/us-central1/jobs/11af2ad0-2e5f-497b-bd05-623c3bf0405d]   
+    google_dataproc_job.spark: Creation complete after 1s [id=projects/gcp-learning-project-312006/regions/us-central1/jobs/11af2ad0-2e5f-497b-bd05-623c3bf0405d]   
 ```
 
 ### Now validate on console
@@ -137,9 +137,9 @@ This will crete a master and worker config with default values having 1 master a
     The cluster 'terraform-dproc-cluster' and all attached disks will be
     deleted.
     Do you want to continue (Y/n)?  y
-    Waiting on operation [projects/weighty-wonder-308406/regions/us-central1/operations/83a065fd-b48a-3dc1-b897-5306979f10f7].
+    Waiting on operation [projects/gcp-learning-project-312006/regions/us-central1/operations/83a065fd-b48a-3dc1-b897-5306979f10f7].
     Waiting for cluster deletion operation...done.
-    Deleted [https://dataproc.googleapis.com/v1/projects/weighty-wonder-308406/regions/us-central1/clusters/terraform-dproc-cluster].
+    Deleted [https://dataproc.googleapis.com/v1/projects/gcp-learning-project-312006/regions/us-central1/clusters/terraform-dproc-cluster].
 ```
 
 3. delete the Job
@@ -149,7 +149,7 @@ This will crete a master and worker config with default values having 1 master a
     The job '11af2ad0-2e5f-497b-bd05-623c3bf0405d' will be deleted.
     Do you want to continue (Y/n)?  y
     Waiting for job deletion...done.
-    Deleted [https://dataproc.googleapis.com/v1/projects/weighty-wonder-308406/regions/us-central1/jobs/11af2ad0-2e5f-497b-bd05-623c3bf0405d].
+    Deleted [https://dataproc.googleapis.com/v1/projects/gcp-learning-project-312006/regions/us-central1/jobs/11af2ad0-2e5f-497b-bd05-623c3bf0405d].
 ```
 
 4. Again List instance to ensure its delete.

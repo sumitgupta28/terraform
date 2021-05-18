@@ -56,3 +56,4 @@
 ## gcloud - compute  
 ## [gcloud - pubsub](./gcp-commands-pubsub.md)
 ## [gcloud - cloud-run](./gcp-cloud-run-commands.md)
+## [gsutil](./gcp-gsutil-commands.md)

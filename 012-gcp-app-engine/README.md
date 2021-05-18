@@ -113,15 +113,15 @@
 
     $ gcloud app browse -s gcp-app-engine-sample
     Did not detect your browser. Go to this link to view your app:
-    https://gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com
+    https://gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com
 
     $ gcloud app browse -s gcp-app-engine-sample --version v1
     Did not detect your browser. Go to this link to view your app:
-    https://v1-dot-gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com
+    https://v1-dot-gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com
 
     $ gcloud app browse -s gcp-app-engine-sample --version v2
     Did not detect your browser. Go to this link to view your app:
-    https://v2-dot-gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com
+    https://v2-dot-gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com
 
 ```
 
@@ -129,10 +129,10 @@
 
 ```sh
 
-$curl https://v1-dot-gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com/api/health
+$curl https://v1-dot-gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com/api/health
 App is Healthy : app.version:v1
 
-$ curl https://v2-dot-gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com/api/health
+$ curl https://v2-dot-gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com/api/health
 App is Healthy : app.version:v1
 
 ```
@@ -142,12 +142,12 @@ App is Healthy : app.version:v1
 ```sh
 
     $ terraform destroy -auto-approve
-    google_app_engine_service_split_traffic.liveapp: Destroying... [id=apps/weighty-wonder-308406/services/gcp-app-engine-sample]
+    google_app_engine_service_split_traffic.liveapp: Destroying... [id=apps/gcp-learning-project-312006/services/gcp-app-engine-sample]
     google_app_engine_service_split_traffic.liveapp: Destruction complete after 0s
-    google_app_engine_standard_app_version.gcp-app-engine-sample-v2: Destroying... [id=apps/weighty-wonder-308406/services/gcp-app-engine-sample/versions/v2]
-    google_app_engine_standard_app_version.gcp-app-engine-sample-v1: Destroying... [id=apps/weighty-wonder-308406/services/gcp-app-engine-sample/versions/v1]
-    google_app_engine_standard_app_version.gcp-app-engine-sample-v2: Still destroying... [id=apps/weighty-wonder-308406/services/gcp-app-engine-sample/versions/v2, 10s elapsed]
-    google_app_engine_standard_app_version.gcp-app-engine-sample-v1: Still destroying... [id=apps/weighty-wonder-308406/services/gcp-app-engine-sample/versions/v1, 10s elapsed]
+    google_app_engine_standard_app_version.gcp-app-engine-sample-v2: Destroying... [id=apps/gcp-learning-project-312006/services/gcp-app-engine-sample/versions/v2]
+    google_app_engine_standard_app_version.gcp-app-engine-sample-v1: Destroying... [id=apps/gcp-learning-project-312006/services/gcp-app-engine-sample/versions/v1]
+    google_app_engine_standard_app_version.gcp-app-engine-sample-v2: Still destroying... [id=apps/gcp-learning-project-312006/services/gcp-app-engine-sample/versions/v2, 10s elapsed]
+    google_app_engine_standard_app_version.gcp-app-engine-sample-v1: Still destroying... [id=apps/gcp-learning-project-312006/services/gcp-app-engine-sample/versions/v1, 10s elapsed]
     google_app_engine_standard_app_version.gcp-app-engine-sample-v2: Destruction complete after 12s
     google_app_engine_standard_app_version.gcp-app-engine-sample-v1: Destruction complete after 13s
     google_storage_bucket_object.application-zip-copy: Destroying... [id=sumitgupta28-code-bucket-code-zip.zip]
@@ -164,14 +164,14 @@ App is Healthy : app.version:v1
 ### Url Naming - default Service url
 
 ```
-    https://weighty-wonder-308406.wl.r.appspot.com/api/health
+    https://gcp-learning-project-312006.wl.r.appspot.com/api/health
     
     https://<<project-name>>.<<region-id>>.r.appspot.com/<<APP_URI>>
 ```
 
 ### Url Naming - with service name
 ```
-    https://gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com/api/health
+    https://gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com/api/health
     
     https://<<service-name>>-dot-<<project-name>>.<<region-id>>.r.appspot.com/<<APP_URI>>
 
@@ -180,7 +180,7 @@ App is Healthy : app.version:v1
 
 ### Url Naming - with version and service name
 ```
-    https://v2-dot-gcp-app-engine-sample-dot-weighty-wonder-308406.wl.r.appspot.com/api/health
+    https://v2-dot-gcp-app-engine-sample-dot-gcp-learning-project-312006.wl.r.appspot.com/api/health
     
     https://<<version>>-dot-<<service-name>>-dot-<<project-name>>.<<region-id>>.r.appspot.com/<<APP_URI>>
 

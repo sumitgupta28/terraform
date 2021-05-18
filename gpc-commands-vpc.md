@@ -6,7 +6,7 @@
 
 ```sh
     $ gcloud compute networks create test-vpc-network \
-    --project=weighty-wonder-308406 \
+    --project=gcp-learning-project-312006 \
     --description=test-vpc-network \
     --subnet-mode=custom \
     --mtu=1460 \
@@ -16,7 +16,7 @@
 ### gcloud - compute -- subnets create
 ```sh
     $ gcloud compute networks subnets create us-west-1-subnet \
-    --project=weighty-wonder-308406 \
+    --project=gcp-learning-project-312006 \
     --description=us-west-1-subnet \
     --range=10.0.0.0/12 \
     --network=test-vpc-network \

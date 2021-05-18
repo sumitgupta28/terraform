@@ -7,7 +7,7 @@ resource "google_cloud_run_service" "docker-sample-app" {
   template {
     spec {
       containers {
-        image = "us.gcr.io/weighty-wonder-308406/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091"
+        image = "us.gcr.io/gcp-learning-project-312006/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091"
       }
     }
     metadata {

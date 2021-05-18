@@ -23,14 +23,14 @@ Here we are going to clone my demo application from git and create an image for 
 
     $ cd k8s-demo-app/ocp-demo-app
 
-    $ docker build . -t us.gcr.io/weighty-wonder-308406/docker-sample-app:v1
+    $ docker build . -t us.gcr.io/gcp-learning-project-312006/docker-sample-app:v1
 
     $ docker images
     REPOSITORY                                          TAG                IMAGE ID       CREATED         SIZE
-    us.gcr.io/weighty-wonder-308406/docker-sample-app   v1                 8d226d2b52b8   2 minutes ago   290MB
+    us.gcr.io/gcp-learning-project-312006/docker-sample-app   v1                 8d226d2b52b8   2 minutes ago   290MB
 
-    $ docker push us.gcr.io/weighty-wonder-308406/docker-sample-app:v1
-    The push refers to repository [us.gcr.io/weighty-wonder-308406/docker-sample-app]
+    $ docker push us.gcr.io/gcp-learning-project-312006/docker-sample-app:v1
+    The push refers to repository [us.gcr.io/gcp-learning-project-312006/docker-sample-app]
     5b1bed977204: Pushed
     c4cbea964368: Pushed
     8177b5e86a0f: Pushed
@@ -46,8 +46,8 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
 
 ```sh
 
-    $ docker push us.gcr.io/weighty-wonder-308406/docker-sample-app:v2
-    The push refers to repository [us.gcr.io/weighty-wonder-308406/docker-sample-app]
+    $ docker push us.gcr.io/gcp-learning-project-312006/docker-sample-app:v2
+    The push refers to repository [us.gcr.io/gcp-learning-project-312006/docker-sample-app]
     4d1b37d4b199: Pushed
     c4cbea964368: Layer already exists
     8177b5e86a0f: Layer already exists
@@ -58,8 +58,8 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
     v2: digest: sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 size: 1793
 
     $ docker images | grep us.gcr
-    us.gcr.io/weighty-wonder-308406/docker-sample-app   v2                 b984deef9c4e   2 minutes ago    290MB
-    us.gcr.io/weighty-wonder-308406/docker-sample-app   v1                 8d226d2b52b8   11 minutes ago   290MB
+    us.gcr.io/gcp-learning-project-312006/docker-sample-app   v2                 b984deef9c4e   2 minutes ago    290MB
+    us.gcr.io/gcp-learning-project-312006/docker-sample-app   v1                 8d226d2b52b8   11 minutes ago   290MB
 
 ```
 
@@ -67,9 +67,9 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
 
 ```sh
 
-    $ gcloud container images list --repository=us.gcr.io/weighty-wonder-308406
+    $ gcloud container images list --repository=us.gcr.io/gcp-learning-project-312006
     NAME
-    us.gcr.io/weighty-wonder-308406/docker-sample-app
+    us.gcr.io/gcp-learning-project-312006/docker-sample-app
 
 ```
 
@@ -87,7 +87,7 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
     template {
         spec {
         containers {
-            image = "us.gcr.io/weighty-wonder-308406/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091"
+            image = "us.gcr.io/gcp-learning-project-312006/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091"
         }
         }
         metadata {
@@ -132,9 +132,9 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
     google_cloud_run_service.docker-sample-app: Creating...
     google_cloud_run_service.docker-sample-app: Still creating... [10s elapsed]
     google_cloud_run_service.docker-sample-app: Still creating... [20s elapsed]
-    google_cloud_run_service.docker-sample-app: Creation complete after 28s [id=locations/us-central1/namespaces/weighty-wonder-308406/services/docker-sample-app-service]
+    google_cloud_run_service.docker-sample-app: Creation complete after 28s [id=locations/us-central1/namespaces/gcp-learning-project-312006/services/docker-sample-app-service]
     google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Creating...
-    google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Creation complete after 1s [id=v1/projects/weighty-wonder-308406/locations/us-central1/services/docker-sample-app-service]
+    google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Creation complete after 1s [id=v1/projects/gcp-learning-project-312006/locations/us-central1/services/docker-sample-app-service]
 
     Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 
@@ -174,11 +174,11 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
     To specify the platform yourself, pass `--platform managed`. Or, to make this the default target platform, run `gcloud config set run/platform managed`.
 
     SERVICE                    REGION       URL                                                        LAST DEPLOYED BY             LAST DEPLOYED AT
-    ✔  docker-sample-app-service  us-central1  https://docker-sample-app-service-rw3qaxgcaq-uc.a.run.app  terraform-sa@weighty-wonder-308406.iam.gserviceaccount.com  2021-04-18T01:43:43.137605Z
+    ✔  docker-sample-app-service  us-central1  https://docker-sample-app-service-rw3qaxgcaq-uc.a.run.app  terraform-sa@gcp-learning-project-312006.iam.gserviceaccount.com  2021-04-18T01:43:43.137605Z
 
     $ gcloud run revisions  list  --platform managed --region=us-central1
     REVISION                         ACTIVE  SERVICE                    DEPLOYED                 DEPLOYED BY
-    ✔  docker-sample-app-service-green  yes     docker-sample-app-service  2021-04-18 01:43:23 UTC  terraform-sa@weighty-wonder-308406.iam.gserviceaccount.com
+    ✔  docker-sample-app-service-green  yes     docker-sample-app-service  2021-04-18 01:43:23 UTC  terraform-sa@gcp-learning-project-312006.iam.gserviceaccount.com
 
 ```
 
@@ -187,9 +187,9 @@ Created another version of this app by updateding the version at /k8s-demo-app/o
 
 ```sh
     $ terraform destroy -auto-approve
-    google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Destroying... [id=v1/projects/weighty-wonder-308406/locations/us-central1/services/docker-sample-app-service]
+    google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Destroying... [id=v1/projects/gcp-learning-project-312006/locations/us-central1/services/docker-sample-app-service]
     google_cloud_run_service_iam_policy.docker-sample-app-noauth-iam-policy: Destruction complete after 1s
-    google_cloud_run_service.docker-sample-app: Destroying... [id=locations/us-central1/namespaces/weighty-wonder-308406/services/docker-sample-app-service]
+    google_cloud_run_service.docker-sample-app: Destroying... [id=locations/us-central1/namespaces/gcp-learning-project-312006/services/docker-sample-app-service]
     google_cloud_run_service.docker-sample-app: Destruction complete after 1s
 
     Destroy complete! Resources: 2 destroyed.

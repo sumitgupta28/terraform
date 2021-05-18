@@ -128,7 +128,7 @@ resource "google_compute_router_nat" "nat" {
 }
 
 ## Refrence to Template file to be executed on instance startup
-data "template_file" "nginx" {
+data "template_file" "install-java" {
   template = file("${path.module}/script/install_java_start_app.sh")
 }
 
@@ -173,7 +173,7 @@ resource "google_compute_instance_template" "terraform-maintained-it" {
     on_host_maintenance = "MIGRATE"
   }
 
-  metadata_startup_script = data.template_file.nginx.rendered
+  metadata_startup_script = data.template_file.install-java.rendered
   instance_description    = "instance maintained by Terraform"
   can_ip_forward          = false
 

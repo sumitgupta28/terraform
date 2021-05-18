@@ -18,7 +18,6 @@ Dataflow allows Apache Beam tasks with all the in-built functionality. Also, to 
 ### [List of Google Provided Templates](https://cloud.google.com/dataflow/docs/guides/templates/provided-templates)
 
 ```sh
-
     $ gsutil ls gs://dataflow-templates-us-central1/latest
     gs://dataflow-templates-us-central1/latest/Bulk_Compress_GCS_Files
     gs://dataflow-templates-us-central1/latest/Bulk_Compress_GCS_Files_metadata
@@ -173,21 +172,21 @@ let Terraform this ...
 ### Apply 
 ```sh
     $ terraform apply -auto-approve
-    google_pubsub_topic.topic-dataflow-job-destination: Refreshing state... [id=projects/weighty-wonder-308406/topics/dataflow-job-destination-topic]
-    google_pubsub_topic.topic-dataflow-job-source: Refreshing state... [id=projects/weighty-wonder-308406/topics/dataflow-job-source-topic]
+    google_pubsub_topic.topic-dataflow-job-destination: Refreshing state... [id=projects/gcp-learning-project-312006/topics/dataflow-job-destination-topic]
+    google_pubsub_topic.topic-dataflow-job-source: Refreshing state... [id=projects/gcp-learning-project-312006/topics/dataflow-job-source-topic]
     google_storage_bucket.temp-working-bucket: Refreshing state... [id=sumitgupta28-temp-working-bucket]
-    google_pubsub_subscription.dataflow-job-source-topic-subscription: Refreshing state... [id=projects/weighty-wonder-308406/subscriptions/dataflow-job-source-topic-subscription]
+    google_pubsub_subscription.dataflow-job-source-topic-subscription: Refreshing state... [id=projects/gcp-learning-project-312006/subscriptions/dataflow-job-source-topic-subscription]
     google_storage_bucket_object.temp-working-bucket-folder: Refreshing state... [id=sumitgupta28-temp-working-bucket-temp/]
     google_dataflow_job.pubsub-pubsub-stream: Refreshing state... [id=2021-04-01_21_00_59-15821056879312934045]
     google_pubsub_subscription.dataflow-job-destination-topic-subscription: Creating...
-    google_pubsub_subscription.dataflow-job-destination-topic-subscription: Creation complete after 4s [id=projects/weighty-wonder-308406/subscriptions/dataflow-job-destination-topic-subscription]
+    google_pubsub_subscription.dataflow-job-destination-topic-subscription: Creation complete after 4s [id=projects/gcp-learning-project-312006/subscriptions/dataflow-job-destination-topic-subscription]
 
     Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
     Outputs:
 
-    dataflow-job-source-topic-subscription-path = "projects/weighty-wonder-308406/subscriptions/dataflow-job-source-topic-subscription"
-    google_pubsub_topic-topic-dataflow-job-destination-id = "projects/weighty-wonder-308406/topics/dataflow-job-destination-topic"
+    dataflow-job-source-topic-subscription-path = "projects/gcp-learning-project-312006/subscriptions/dataflow-job-source-topic-subscription"
+    google_pubsub_topic-topic-dataflow-job-destination-id = "projects/gcp-learning-project-312006/topics/dataflow-job-destination-topic"
 
 ```
 
@@ -225,7 +224,7 @@ $ gcloud pubsub subscriptions pull dataflow-job-destination-topic-subscription -
 ```sh
     $ terraform destroy -auto-approve
     google_storage_bucket_object.temp-working-bucket-folder: Destroying... [id=sumitgupta28-temp-working-bucket-temp/]
-    google_pubsub_subscription.dataflow-job-destination-topic-subscription: Destroying... [id=projects/weighty-wonder-308406/subscriptions/dataflow-job-destination-topic-subscription]
+    google_pubsub_subscription.dataflow-job-destination-topic-subscription: Destroying... [id=projects/gcp-learning-project-312006/subscriptions/dataflow-job-destination-topic-subscription]
     google_dataflow_job.pubsub-pubsub-stream: Destroying... [id=2021-04-01_21_00_59-15821056879312934045]
     google_storage_bucket_object.temp-working-bucket-folder: Destruction complete after 1s
     google_storage_bucket.temp-working-bucket: Destroying... [id=sumitgupta28-temp-working-bucket]
@@ -238,11 +237,11 @@ $ gcloud pubsub subscriptions pull dataflow-job-destination-topic-subscription -
     google_dataflow_job.pubsub-pubsub-stream: Still destroying... [id=2021-04-01_21_00_59-15821056879312934045, 50s elapsed]
     google_dataflow_job.pubsub-pubsub-stream: Still destroying... [id=2021-04-01_21_00_59-15821056879312934045, 1m1s elapsed]
     google_dataflow_job.pubsub-pubsub-stream: Destruction complete after 1m8s
-    google_pubsub_topic.topic-dataflow-job-destination: Destroying... [id=projects/weighty-wonder-308406/topics/dataflow-job-destination-topic]
-    google_pubsub_subscription.dataflow-job-source-topic-subscription: Destroying... [id=projects/weighty-wonder-308406/subscriptions/dataflow-job-source-topic-subscription]
+    google_pubsub_topic.topic-dataflow-job-destination: Destroying... [id=projects/gcp-learning-project-312006/topics/dataflow-job-destination-topic]
+    google_pubsub_subscription.dataflow-job-source-topic-subscription: Destroying... [id=projects/gcp-learning-project-312006/subscriptions/dataflow-job-source-topic-subscription]
     google_pubsub_topic.topic-dataflow-job-destination: Destruction complete after 1s
     google_pubsub_subscription.dataflow-job-source-topic-subscription: Destruction complete after 1s
-    google_pubsub_topic.topic-dataflow-job-source: Destroying... [id=projects/weighty-wonder-308406/topics/dataflow-job-source-topic]
+    google_pubsub_topic.topic-dataflow-job-source: Destroying... [id=projects/gcp-learning-project-312006/topics/dataflow-job-source-topic]
     google_pubsub_topic.topic-dataflow-job-source: Destruction complete after 1s
 
     Destroy complete! Resources: 7 destroyed.

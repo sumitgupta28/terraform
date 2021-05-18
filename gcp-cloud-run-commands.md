@@ -16,7 +16,7 @@
     [core]
     account = sumitgupta28@gmail.com
     disable_usage_reporting = True
-    project = weighty-wonder-308406
+    project = gcp-learning-project-312006
     [metrics]
     environment = devshell
     [run]
@@ -32,10 +32,10 @@
 
 ```sh
 
-    $ gcloud run deploy sample-service --image us.gcr.io/weighty-wonder-308406/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v1 --platform managed --region us-central1
+    $ gcloud run deploy sample-service --image us.gcr.io/gcp-learning-project-312006/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v1 --platform managed --region us-central1
     Allow unauthenticated invocations to [sample-service] (y/N)?  y
 
-    Deploying container to Cloud Run service [sample-service] in project [weighty-wonder-308406] region [us-central1]
+    Deploying container to Cloud Run service [sample-service] in project [gcp-learning-project-312006] region [us-central1]
     ✓ Deploying new service... Done.                                                           
     ✓ Creating Revision... Revision deployment finished. Waiting for health check to begin.
     ✓ Routing traffic...
@@ -126,10 +126,10 @@
 #### creation sample-service-v1
 
 ```
-    $ gcloud run deploy sample-service --image us.gcr.io/weighty-wonder-308406/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v1 --platform managed --region us-central1
+    $ gcloud run deploy sample-service --image us.gcr.io/gcp-learning-project-312006/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v1 --platform managed --region us-central1
     Allow unauthenticated invocations to [sample-service] (y/N)?  y
 
-    Deploying container to Cloud Run service [sample-service] in project [weighty-wonder-308406] region [us-central1]
+    Deploying container to Cloud Run service [sample-service] in project [gcp-learning-project-312006] region [us-central1]
     ✓ Deploying new service... Done.                                                           
     ✓ Creating Revision... Revision deployment finished. Waiting for health check to begin.
     ✓ Routing traffic...
@@ -143,8 +143,8 @@
 #### creation sample-service-v2
 
 ```sh
-    $ gcloud run deploy sample-service --image us.gcr.io/weighty-wonder-308406/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v2 --platform managed --region us-central1
-    Deploying container to Cloud Run service [sample-service] in project [weighty-wonder-308406] region [us-central1]
+    $ gcloud run deploy sample-service --image us.gcr.io/gcp-learning-project-312006/docker-sample-app@sha256:8fab095903e760793211d7d6676408dc4594c1021b236a0db4ea67aa221d5091 --revision-suffix v2 --platform managed --region us-central1
+    Deploying container to Cloud Run service [sample-service] in project [gcp-learning-project-312006] region [us-central1]
     ✓ Deploying... Done.                                                           
     ✓ Creating Revision...
     ✓ Routing traffic...

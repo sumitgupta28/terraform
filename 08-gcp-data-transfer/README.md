@@ -206,7 +206,7 @@ Storage Transfer Service does the following by default:
         + id                          = (known after apply)
         + location                    = "US"
         + name                        = "sumitgupta28-awss3-backup-bucket"
-        + project                     = "weighty-wonder-308406"
+        + project                     = "gcp-learning-project-312006"
         + self_link                   = (known after apply)
         + storage_class               = "NEARLINE"
         + uniform_bucket_level_access = true
@@ -230,7 +230,7 @@ Storage Transfer Service does the following by default:
         + id                     = (known after apply)
         + last_modification_time = (known after apply)
         + name                   = (known after apply)
-        + project                = "weighty-wonder-308406"
+        + project                = "gcp-learning-project-312006"
         + status                 = "ENABLED"
 
         + schedule {
@@ -288,7 +288,7 @@ Storage Transfer Service does the following by default:
     aws_s3_bucket_object.s3_bucket_upload["cicd6.jpg"]: Creation complete after 2s [id=cicd6.jpg]
     aws_s3_bucket_object.s3_bucket_upload["cdid5.png"]: Creation complete after 2s [id=cdid5.png]
     google_storage_transfer_job.s3-bucket-transfer-job: Creating...
-    google_storage_transfer_job.s3-bucket-transfer-job: Creation complete after 2s [id=weighty-wonder-308406/5495505653004594035]
+    google_storage_transfer_job.s3-bucket-transfer-job: Creation complete after 2s [id=gcp-learning-project-312006/5495505653004594035]
 
     Outputs:
 
@@ -319,7 +319,7 @@ Storage Transfer Service does the following by default:
 ```sh
     $ terraform destroy -auto-approve
     google_storage_bucket_iam_member.s3-backup-bucket: Destroying... [id=b/sumitgupta28-awss3-backup-bucket/roles/storage.admin/serviceaccount:project-234356343826@storage-transfer-service.iam.gserviceaccount.com]
-    google_storage_transfer_job.s3-bucket-transfer-job: Destroying... [id=weighty-wonder-308406/5495505653004594035]
+    google_storage_transfer_job.s3-bucket-transfer-job: Destroying... [id=gcp-learning-project-312006/5495505653004594035]
     google_storage_transfer_job.s3-bucket-transfer-job: Destruction complete after 1s
     aws_s3_bucket_object.s3_bucket_upload["cdid5.png"]: Destroying... [id=cdid5.png]
     aws_s3_bucket_object.s3_bucket_upload["cicd6.jpg"]: Destroying... [id=cicd6.jpg]
